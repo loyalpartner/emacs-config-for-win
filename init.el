@@ -35,7 +35,7 @@
   (load bootstrap-file nil 'nomessage))
 
 (add-to-list 'load-path
-             (expand-file-name "site-lisp"))
+             (expand-file-name "site-lisp" user-emacs-directory))
 
 (straight-use-package 'use-package)
 
