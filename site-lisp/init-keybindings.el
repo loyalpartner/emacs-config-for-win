@@ -21,25 +21,28 @@
 
 (defvar leader-key "SPC")
 
+(general-override-mode)
+
 (general-define-key
    :keymaps '(normal visual) "gc" #'evilnc-comment-operator)
 
 (nvmap :prefix leader-key
+  :keymaps 'override
   "bb" #'switch-to-buffer
   "bd" #'kill-this-buffer
   "bp" #'previous-buffer
   "bn" #'next-buffer)
 
 (nvmap :prefix leader-key
+  :keymaps 'override
   "ff" #'find-file
   "fp" #'find-file-in-project
   "SPC" #'find-file-in-project
   "fs" #'save-buffer)
 
 (nvmap :prefix leader-key
+  :keymaps 'override
   "ww" #'other-window)
-
-(evil-set-initial-state 'helpful-mode 'normal)
 
 (provide 'init-keybindings)
 ;;; init-keybindings.el ends here
