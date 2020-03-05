@@ -24,20 +24,22 @@
 (general-define-key
    :keymaps '(normal visual) "gc" #'evilnc-comment-operator)
 
-(nmap :prefix leader-key
+(nvmap :prefix leader-key
   "bb" #'switch-to-buffer
   "bd" #'kill-this-buffer
   "bp" #'previous-buffer
   "bn" #'next-buffer)
 
-(nmap :prefix leader-key
+(nvmap :prefix leader-key
   "ff" #'find-file
   "fp" #'find-file-in-project
   "SPC" #'find-file-in-project
   "fs" #'save-buffer)
 
-(nmap :prefix leader-key
+(nvmap :prefix leader-key
   "ww" #'other-window)
+
+(evil-set-initial-state 'helpful-mode 'normal)
 
 (provide 'init-keybindings)
 ;;; init-keybindings.el ends here
