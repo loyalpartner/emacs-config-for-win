@@ -24,6 +24,9 @@
 (defconst IS-WINDOWS (memq system-type '(cygwin windows-nt ms-dos)))
 (defconst IS-BSD     (or IS-MAC (eq system-type 'berkeley-unix)))
 
+(defvar find-file-in-project-program
+  "c:\\msys64\\usr\\bin\\find")
+
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (size-indication-mode t)
@@ -37,6 +40,14 @@
 
 (setq backup-directory-alist
       `(("." . ,(expand-file-name "saves" user-emacs-directory))))
+
+
+(use-package find-file-in-project
+  :straight t
+  :commands (find-file-in-project)
+  :config
+  (when IS-WINDOWS
+    (setq ffip-find-executable find-file-in-project-program)))
 
 (use-package selectrum
   :straight t

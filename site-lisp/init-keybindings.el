@@ -21,10 +21,6 @@
 
 (defvar leader-key "SPC")
 
-(use-package find-file-in-project
-  :straight t
-  :commands (find-file-in-project))
-
 (general-define-key
    :keymaps '(normal visual) "gc" #'evilnc-comment-operator)
 
