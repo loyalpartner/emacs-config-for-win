@@ -19,6 +19,27 @@
 ;;
 ;;; Code:
 
+(defvar evil-collection-disabled-list
+  '(anaconda-mode
+    buff-menu
+    comint
+    company
+    custom
+    eldoc
+    elisp-mode
+    ert
+    free-keys
+    help
+    helm
+    image
+    kotlin-mode
+    occur
+    package-menu
+    ruby-mode
+    simple
+    slime
+    lispy))
+
 (setq evil-want-keybinding nil)
 
 (use-package evil :straight t
@@ -39,6 +60,10 @@
 
 (use-package evil-collection :straight t
   :config
+  (setq evil-collection-mode-list
+	(seq-remove (lambda (mode)
+		      (memq mode evil-collection-disabled-list))
+		    evil-collection-mode-list))
   (evil-collection-init))
 
 (use-package evil-nerd-commenter
