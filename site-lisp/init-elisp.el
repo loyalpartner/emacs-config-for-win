@@ -25,12 +25,15 @@
 
 (use-package helpful
   :straight t
-  :bind (:map help-map
-	      ([remap describe-function] . helpful-callable)
-	      ([remap describe-command] . helpful-command)
-	      ([remap describe-variable] . helpful-variable)
-	      ([remap describe-key]      . helpful-key)
-	      ([remap describe-symbol] . helpful-symbol)))
+  :commands
+  helpful-key
+  helpful-callable
+  helpful-variable
+  :config
+  (general-def help-map
+    "f" #'helpful-callable
+    "v" #'helpful-variable
+    "k" #'helpful-key))
 
 (use-package lispyville
   :straight t
