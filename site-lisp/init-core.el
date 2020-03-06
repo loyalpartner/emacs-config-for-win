@@ -33,6 +33,7 @@
 (column-number-mode 1)
 (blink-cursor-mode 1)
 (global-hl-line-mode)
+(fset 'yes-or-no-p 'y-or-n-p)
 
 (setq mac-option-modifier 'super
       mac-command-modifier 'meta

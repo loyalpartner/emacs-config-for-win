@@ -27,10 +27,13 @@
 
 (use-package evil-escape :straight t
   :init
+  (setq evil-escape-excluded-states '(normal visual multiedit emacs motion)
+        evil-escape-excluded-major-modes '(neotree-mode treemacs-mode vterm-mode)
+	evil-escape-key-sequence "hh"
+        evil-escape-delay 0.3)
+  (evil-define-key* '(insert replace visual operator) 'global "\C-g" #'evil-escape)
   :config
   (add-hook 'evil-escape-inhibit-functions #'minibufferp)
-  (setq evil-escape-delay 0.3
-	evil-escape-key-sequence "hh")
   (evil-escape-mode 1))
 
 (use-package evil-collection :straight t

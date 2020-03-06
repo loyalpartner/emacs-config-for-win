@@ -19,6 +19,13 @@
 ;;
 ;;; Code:
 
+(use-package dashboard
+  :straight t
+  :config
+  (switch-to-buffer "*dashboard*")
+  (dashboard-insert-startupify-lists))
+
+
 (use-package which-key :straight t
   :config
   (which-key-mode 1))

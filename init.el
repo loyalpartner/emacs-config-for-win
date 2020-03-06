@@ -43,9 +43,9 @@
 (add-to-list 'load-path
              (expand-file-name "site-lisp" user-emacs-directory))
 
+(require 'init-ui)
 (require 'init-core)
 (require 'init-evil)
-(require 'init-ui)
 (require 'init-tools)
 (require 'init-vc)
 (require 'init-company)

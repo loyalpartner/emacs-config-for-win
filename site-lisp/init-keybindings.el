@@ -71,5 +71,11 @@
   "gr" #'git-gutter:revert-hunk
   "gg" #'magit)
 
+(nvmap :prefix leader-key
+  :keymaps 'override
+  "hb" nil
+  "hbm" #'which-key-show-major-mode
+  "hbt" #'which-key-show-top-level)
+
 (provide 'init-keybindings)
 ;;; init-keybindings.el ends here

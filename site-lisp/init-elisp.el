@@ -28,12 +28,12 @@
   :commands
   helpful-key
   helpful-callable
-  helpful-variable
-  :config
-  (general-def help-map
-    "f" #'helpful-callable
-    "v" #'helpful-variable
-    "k" #'helpful-key))
+  helpful-variable)
+
+(general-def help-map
+  "f" #'helpful-callable
+  "v" #'helpful-variable
+  "k" #'helpful-key)
 
 (use-package lispyville
   :straight t
