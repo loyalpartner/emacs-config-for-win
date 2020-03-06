@@ -25,10 +25,16 @@
   (switch-to-buffer "*dashboard*")
   (dashboard-insert-startupify-lists))
 
+(use-package doom-modeline
+  :straight t
+  :config (doom-modeline-mode 1))
 
 (use-package which-key :straight t
   :config
   (which-key-mode 1))
+
+(use-package hide-mode-line
+  :straight t)
 
 (provide 'init-ui)
 ;;; init-ui.el ends here

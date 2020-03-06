@@ -21,6 +21,8 @@
 
 (use-package magit
   :straight t
+  :init
+  (add-hook 'magit-mode-hook #'hide-mode-line-mode)
   :commands magit)
 
 (use-package forge
