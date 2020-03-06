@@ -24,6 +24,15 @@
   :diminish company-mode
   :defines (company-dabbrev-ignore-case company-dabbrev-downcase)
   :commands company-abort
+  :config
+  (setq company-tooltip-align-annotations t
+        company-tooltip-limit 12
+        company-idle-delay 0.1
+        company-echo-delay (if (display-graphic-p) nil 0)
+        company-minimum-prefix-length 1
+        company-require-match nil
+        company-dabbrev-ignore-case nil
+        company-dabbrev-downcase nil)
   :hook (after-init . global-company-mode))
 
 ;; Better sorting and filtering

@@ -21,9 +21,10 @@
 
 (defvar bootstrap-version)
 
-
 (let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+       (expand-file-name
+	"straight/repos/straight.el/bootstrap.el"
+	user-emacs-directory))
       (bootstrap-version 5))
   (unless (file-exists-p bootstrap-file)
     (with-current-buffer
@@ -34,17 +35,18 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
-(add-to-list 'load-path
-             (expand-file-name "site-lisp" user-emacs-directory))
-
 (straight-use-package 'use-package)
 
 (add-hook 'prog-mode-hook 'electric-pair-local-mode)
 (add-hook 'prog-mode-hook 'electric-indent-local-mode)
 
+(add-to-list 'load-path
+             (expand-file-name "site-lisp" user-emacs-directory))
+
 (require 'init-core)
-(require 'init-ui)
-(require 'init-company)
 (require 'init-evil)
+(require 'init-ui)
+(require 'init-tools)
+(require 'init-company)
 (require 'init-elisp)
 (require 'init-keybindings)

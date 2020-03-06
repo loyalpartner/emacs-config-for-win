@@ -43,5 +43,47 @@
              evilnc-inner-comment
              evilnc-outer-commenter))
 
+(use-package evil-surround
+  :straight t
+  :config
+  (global-evil-surround-mode 1))
+
+(use-package evil-visualstar
+  :straight t
+  :config
+  (global-evil-visualstar-mode 1))
+
+(use-package targets
+  :straight
+  (targets :host github :repo "noctuid/targets.el")
+  :config
+  (targets-setup 1)
+  (targets-define-to function 'evil-defun nil object
+		     :bind f 
+		     :keys "f"
+		     :linewise t
+		     :remote-key "r"))
+
+(use-package evil-snipe
+  :straight t
+  :init
+  (setq evil-snipe-smart-case t
+        evil-snipe-scope 'line
+        evil-snipe-repeat-scope 'visible
+        evil-snipe-char-fold t)
+  :config
+  (evil-snipe-mode 1)
+  (evil-snipe-override-mode 1))
+
+;;;###autoload###
+(evil-define-operator evil-eval-region-operator (beg end)
+  "Evaluate selection or sends it to the open REPL, if available."
+  :move-point nil
+  (interactive "<r>")
+  (print (eval-region beg end) ))
+
+(nvmap :map emacs-lisp-mode-map
+  "gr" #'evil-eval-region-operator)
+
 (provide 'init-evil)
 ;;; init-evil.el ends here

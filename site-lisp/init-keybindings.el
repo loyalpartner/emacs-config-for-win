@@ -18,17 +18,36 @@
 ;;
 ;;
 ;;; Code:
-
+;;;;;;;;;;;;;;;;; 
 (defvar leader-key "SPC")
 
-(general-override-mode)
+;;;###autoload
+(defun find-recent-file ()
+  "show recentf list"
+  (interactive)
+  (recentf-mode)
+  (find-file (completing-read
+	      "recentf:" recentf-list)))
+
+;;;###autoload
+(defun find-scratch ()
+  (interactive)
+  (switch-to-buffer "*scratch*"))
 
 (general-define-key
    :keymaps '(normal visual) "gc" #'evilnc-comment-operator)
 
 (nvmap :prefix leader-key
   :keymaps 'override
+  "b" '(nil :which-key "buffer")
+  "f" '(nil :which-key "file")
+  "w" '(:keymap evil-window-map :which-key "window")
+  "h" '(:keymap help-map :which-key "help"))
+
+(nvmap :prefix leader-key
+  :keymaps 'override
   "bb" #'switch-to-buffer
+  "bx" #'find-scratch
   "bd" #'kill-this-buffer
   "bp" #'previous-buffer
   "bn" #'next-buffer)
@@ -36,13 +55,14 @@
 (nvmap :prefix leader-key
   :keymaps 'override
   "ff" #'find-file
+  "fr" #'find-recent-file
   "fp" #'find-file-in-project
   "SPC" #'find-file-in-project
   "fs" #'save-buffer)
 
 (nvmap :prefix leader-key
   :keymaps 'override
-  "ww" #'other-window)
+  "qq" #'save-buffers-kill-emacs)
 
 (provide 'init-keybindings)
 ;;; init-keybindings.el ends here

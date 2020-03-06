@@ -23,6 +23,15 @@
   :config
   (emacs-lisp-mode))
 
+(use-package helpful
+  :straight t
+  :bind (:map help-map
+	      ([remap describe-function] . helpful-callable)
+	      ([remap describe-command] . helpful-command)
+	      ([remap describe-variable] . helpful-variable)
+	      ([remap describe-key]      . helpful-key)
+	      ([remap describe-symbol] . helpful-symbol)))
+
 (use-package lispyville
   :straight t
   :hook (lispy-mode . lispyville-mode)

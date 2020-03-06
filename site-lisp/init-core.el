@@ -38,9 +38,12 @@
       mac-command-modifier 'meta
       ns-function-modifier 'hyper)
 
+(setq make-backup-files nil)
 (setq backup-directory-alist
       `(("." . ,(expand-file-name "saves" user-emacs-directory))))
 
+;;; https://gist.github.com/jcouyang/d7cf6c8011b3b9c3f9a7
+(setq vc-follow-symlinks nil)
 
 (use-package find-file-in-project
   :straight t
@@ -57,7 +60,8 @@
 (use-package general
   :straight t
   :config
-  (general-evil-setup t))
+  (general-evil-setup t)
+  (general-override-mode))
 
 (use-package selectrum-prescient
   :straight
@@ -67,7 +71,6 @@
   :config
   (selectrum-prescient-mode +1)
   (prescient-persist-mode +1))
-
 
 (provide 'init-core)
 ;;; init-core.el ends here
