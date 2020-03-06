@@ -41,6 +41,7 @@
   :keymaps 'override
   "b" '(nil :which-key "buffer")
   "f" '(nil :which-key "file")
+  "g" '(nil :which-key "git")
   "w" '(:keymap evil-window-map :which-key "window")
   "h" '(:keymap help-map :which-key "help"))
 
@@ -63,6 +64,12 @@
 (nvmap :prefix leader-key
   :keymaps 'override
   "qq" #'save-buffers-kill-emacs)
+
+(nvmap :prefix leader-key
+  :keymaps 'override
+  "gs" #'git-gutter:stage-hunk
+  "gr" #'git-gutter:revert-hunk
+  "gg" #'magit)
 
 (provide 'init-keybindings)
 ;;; init-keybindings.el ends here

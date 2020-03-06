@@ -47,6 +47,7 @@
 (require 'init-evil)
 (require 'init-ui)
 (require 'init-tools)
+(require 'init-vc)
 (require 'init-company)
 (require 'init-elisp)
 (require 'init-keybindings)
