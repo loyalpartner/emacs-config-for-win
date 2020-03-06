@@ -74,7 +74,11 @@
 (nvmap :prefix leader-key
   :keymaps 'override
   "hb" nil
+  ;; #TODO
+  "hbi" #'which-key-show-minor-mode-keymap
+  "hbf" #'which-key-show-full-keymap
   "hbm" #'which-key-show-major-mode
+  "hbk" #'which-key-show-keymap
   "hbt" #'which-key-show-top-level)
 
 (provide 'init-keybindings)
