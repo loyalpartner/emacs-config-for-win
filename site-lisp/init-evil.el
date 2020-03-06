@@ -30,7 +30,8 @@
   (setq evil-escape-excluded-states '(normal visual multiedit emacs motion)
         evil-escape-excluded-major-modes '(neotree-mode treemacs-mode vterm-mode)
 	evil-escape-key-sequence "hh"
-        evil-escape-delay 0.3)
+        evil-escape-delay 0.3
+        evil-symbol-word-search t)
   (evil-define-key* '(insert replace visual operator) 'global "\C-g" #'evil-escape)
   :config
   (add-hook 'evil-escape-inhibit-functions #'minibufferp)
