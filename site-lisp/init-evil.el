@@ -114,5 +114,19 @@
 (nvmap :map emacs-lisp-mode-map
   "gr" #'evil-eval-region-operator)
 
+(nmap
+  "]b" #'next-buffer
+  "[b" #'previous-buffer
+  ;; #TODO
+  ;; "]f" #'+evil/next-file
+  ;; "[f" #'+evil/previous-file
+  "]d" #'git-gutter:next-hunk
+  "[d" #'git-gutter:previous-hunk
+  "]t" #'hl-todo-next
+  "[t" #'hl-todo-previous
+  "]e" #'next-error
+  "[e" #'previous-error
+  )
+
 (provide 'init-evil)
 ;;; init-evil.el ends here
