@@ -26,5 +26,10 @@
   (setq auto-save-silent t)
   (auto-save-enable))
 
+(use-package link-hint
+  :straight t
+  :commands (link-hint-copy-link
+	     link-hint-open-link))
+
 (provide 'init-tools)
 ;;; init-tools.el ends here

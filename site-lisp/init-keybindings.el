@@ -82,5 +82,41 @@
   "hbk" #'which-key-show-keymap
   "hbt" #'which-key-show-top-level)
 
+;;;###autoload
+(defun search-cwd (&optional arg)
+  (interactive "P")
+  (let* ((default-directory (if arg
+				(read-directory-name "Search directory: ")
+			      default-directory))
+	 (directory-name (directory-file-name default-directory))
+	 (prompt (format "rg [%s]: " directory-name)))
+
+    (counsel-rg nil default-directory nil prompt)))
+
+;;;###autoload
+(defun search-other-cwd ()
+  (interactive)
+  (search-cwd 'other))
+
+;; search
+(nvmap :prefix leader-key
+  :keymaps 'override
+  "sb" '(counsel-grep-or-swiper :which-key "search current buffer")
+  "sd" '(search-cwd :which-key "search current directory")
+  "sD" '(search-other-cwd :which-key "search current directory")
+  "sf" '(counsel-locate :which-key "locate file")
+  "si" '(counsel-imenu :which-key "jump to symbol")
+  "sl" '(link-hint-open-link :which-key "jump to link")
+  "sL" '(link-hint-copy-link :which-key "copy link")
+  "so" '(counsel-ace-link :which-key "#TODO")
+  "sp" '(counsel-rg :which-key "search project")
+  "ss" '(swiper-isearch :which-key "search buffer")
+  "sS" '(swiper-isearch-thing-at-point :which-key "search buffer at point"))
+
+;; 
+(nvmap :prefix leader-key
+  :keymaps 'override
+  "qq" #'save-buffers-kill-emacs)
+
 (provide 'init-keybindings)
 ;;; init-keybindings.el ends here
