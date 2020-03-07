@@ -64,14 +64,12 @@
   "SPC" #'find-file-in-project
   "fs" #'save-buffer)
 
+;; git
 (nvmap :prefix leader-key
   :keymaps 'override
-  "qq" #'save-buffers-kill-emacs)
-
-(nvmap :prefix leader-key
-  :keymaps 'override
-  "gs" #'git-gutter:stage-hunk
   "gr" #'git-gutter:revert-hunk
+  "gs" #'git-gutter:stage-hunk
+  "gS" #'magit-stage-file
   "gg" #'magit)
 
 (nvmap :prefix leader-key
