@@ -30,9 +30,12 @@
 	      "recentf:" recentf-list)))
 
 ;;;###autoload
-(defun find-scratch ()
-  (interactive)
-  (switch-to-buffer "*scratch*"))
+(defun find-scratch (&optional args)
+  (interactive "P")
+  (let ((f (if args
+	     #'switch-to-buffer
+	     #'pop-to-buffer)))
+    (funcall f "*scratch*")))
 
 (general-define-key
    :keymaps '(normal visual) "gc" #'evilnc-comment-operator)
