@@ -24,22 +24,78 @@
   :diminish company-mode
   :defines (company-dabbrev-ignore-case company-dabbrev-downcase)
   :commands company-abort
-  :config
-  (setq company-tooltip-align-annotations t
-        company-tooltip-limit 12
-        company-idle-delay 0.1
-        company-echo-delay (if (display-graphic-p) nil 0)
-        company-minimum-prefix-length 1
-        company-require-match nil
+  :init
+  (setq company-minimum-prefix-length 2
+        company-tooltip-limit 14
+        company-dabbrev-downcase nil
         company-dabbrev-ignore-case nil
-        company-dabbrev-downcase nil)
+        company-dabbrev-code-other-buffers t
+        company-tooltip-align-annotations t
+        company-require-match 'never
+        company-global-modes
+        '(not erc-mode message-mode help-mode gud-mode eshell-mode)
+        company-backends '(company-capf)
+        company-frontends
+        '(company-pseudo-tooltip-frontend
+          company-echo-metadata-frontend))
+  :config
+  (add-hook 'company-mode-hook #'evil-normalize-keymaps)
+
+  ;; Allow users to switch between backends on the fly. E.g. C-x C-s followed
+  ;; by C-x C-n, will switch from `company-yasnippet' to
+  ;; `company-dabbrev-code'.
+  (advice-add #'company-begin-backend :before (lambda (orig-fun &rest args)
+  						(company-abort)))
+
+  (general-def company-active-map
+    "C-w"     nil   ; don't interfere with `evil-delete-backward-word'
+    "C-n"     #'company-select-next
+    "C-p"     #'company-select-previous
+    "C-j"     #'company-select-next
+    "C-k"     #'company-select-previous
+    "C-h"     #'company-show-doc-buffer
+    "C-u"     #'company-previous-page
+    "C-d"     #'company-next-page
+    "C-s"     #'company-filter-candidates
+    ;; "C-S-s"   (cond ((featurep! :completion helm) #'helm-company)
+    ;; ((featurep! :completion ivy)  #'counsel-company))
+    "C-SPC"   #'company-complete-common
+    "TAB"     #'company-complete-common-or-cycle
+    "RET" #'company-complete
+    [tab]     #'company-complete-common-or-cycle
+    [backtab] #'company-select-previous)
   :hook (after-init . global-company-mode))
+
+;; (imap [tab] (general-predicate-dispatch nil
+;; 	      (and (yas-maybe-expand-abbrev-key-filter 'yas-expand)
+;; 		   (bound-and-true-p yas-minor-mode))
+;; 	      #'yas-expand))
+
+(imap :prefix "C-x"
+  :keymaps 'override
+  ;; #TODO Omni-completion
+  ;; "C-l"    #'+company/whole-lines
+  ;; "C-k"    #'+company/dict-or-keywords
+  "C-f"    #'company-files
+  "C-]"    #'company-etags
+  "s"      #'company-ispell
+  "C-s"    #'company-yasnippet
+  "C-o"    #'company-capf
+  "C-n"    #'company-dabbrev
+  "C-p"    #'company-dabbrev-code
+  )
 
 ;; Better sorting and filtering
 (use-package company-prescient
   :straight t
   :init (company-prescient-mode 1))
 
+(use-package yasnippet
+  :straight t
+  :config
+  (use-package yasnippet-snippets
+    :straight t)
+  (yas-global-mode 1))
 
 (provide 'init-company)
 ;;; init-company.el ends here
