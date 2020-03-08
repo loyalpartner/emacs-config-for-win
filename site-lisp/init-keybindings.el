@@ -113,6 +113,12 @@
   "ss" '(swiper-isearch :which-key "search buffer")
   "sS" '(swiper-isearch-thing-at-point :which-key "search buffer at point"))
 
+;; window
+(general-def evil-window-map
+  "d" #'evil-window-delete
+  "u" #'winner-undo
+  "C-r" #'winner-redo)
+
 ;; 
 (nvmap :prefix leader-key
   :keymaps 'override

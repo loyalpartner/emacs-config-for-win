@@ -64,6 +64,10 @@
   (general-evil-setup t)
   (general-override-mode))
 
+(use-package winer
+  :hook (after-init . winner-mode))
+
+
 (use-package selectrum-prescient
   :straight
   (selectrum-prescient
