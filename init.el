@@ -19,30 +19,13 @@
 ;;
 ;;; Code:
 
-(defvar bootstrap-version)
-
-(let ((bootstrap-file
-       (expand-file-name
-	"straight/repos/straight.el/bootstrap.el"
-	user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
-
-(straight-use-package 'use-package)
-
 (add-hook 'prog-mode-hook 'electric-pair-local-mode)
 (add-hook 'prog-mode-hook 'electric-indent-local-mode)
 
 (add-to-list 'load-path
              (expand-file-name "site-lisp" user-emacs-directory))
 
+(require 'init-straight)
 (require 'init-ui)
 (require 'init-core)
 (require 'init-evil)
