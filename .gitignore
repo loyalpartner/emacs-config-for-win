@@ -1,5 +1,9 @@
 .local/
 var/
+straight/
+tutorial/
+transient/
+saves/
 modules/private
 .yas-compiled-snippets.el
 
@@ -21,6 +25,8 @@ ede-projects.el
 tramp
 smex-items
 network-security.data
+recentf
+forge-database.sqlite
 
 # compiled files
 *.elc
@@ -34,7 +40,3 @@ network-security.data
 *.log
 .directory
 
-straight/
-tutorial/
-saves/
-recentf
