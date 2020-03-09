@@ -19,22 +19,31 @@
 ;;
 ;;; Code:
 
-(use-package dashboard
-  :straight t
-  :config
-  (switch-to-buffer "*dashboard*")
-  (dashboard-insert-startupify-lists))
+;; (use-package dashboard
+;;   :straight t
+;;   :config
+;;   (switch-to-buffer "*dashboard*")
+;;   (dashboard-insert-startupify-lists))
 
-(use-package doom-modeline
+;; (use-package doom-modeline
+;;   :after-call pre-command-hook
+;;   :straight t
+;;   :config (doom-modeline-mode 1))
+
+(use-package doom-themes
   :straight t
-  :config (doom-modeline-mode 1))
+  :after-call pre-command-hook
+  :init
+  (add-hook 'after-init-hook (lambda () (load-theme 'doom-one-light))))
 
 (use-package which-key :straight t
+  :commands which-key-mode
+  :after-call pre-command-hook
   :config
-  (which-key-mode 1))
+  (which-key-mode))
 
 (use-package hide-mode-line
-  :straight t)
+   :straight t)
 
 (provide 'init-ui)
 ;;; init-ui.el ends here
