@@ -104,6 +104,14 @@
   (evil-snipe-mode 1)
   (evil-snipe-override-mode 1))
 
+(use-package exato
+  :straight t
+  :commands evil-outer-xml-attr evil-inner-xml-attr)
+
+(use-package evil-args
+  :straight t
+  :commands (evil-inner-arg evil-outer-arg))
+
 ;;;###autoload###
 (evil-define-operator evil-eval-region-operator (beg end)
   "Evaluate selection or sends it to the open REPL, if available."
@@ -111,10 +119,62 @@
   (interactive "<r>")
   (print (eval-region beg end) ))
 
+;;;###autoload
+(evil-define-text-object evil-whole-buffer (count &optional _beg _end type)
+  "Text object to select the whole buffer."
+  (evil-range (point-min) (point-max) type))
+
+;;;###autoload
+(evil-define-text-object evil-inner-defun (count &optional _beg _end type)
+  "Text object to select the whole buffer."
+  (cl-destructuring-bind (beg . end)
+      (bounds-of-thing-at-point 'defun)
+    (evil-range beg end type)))
+
+;;;###autoload
+(evil-define-text-object evil-inner-url (count &optional _beg _end type)
+  "Text object to select the inner url at point.
+
+This excludes the protocol and querystring."
+  (cl-destructuring-bind (beg . end)
+      (bounds-of-thing-at-point 'url)
+    (evil-range
+     (save-excursion
+       (goto-char beg)
+       (re-search-forward "://" end t))
+     (save-excursion
+       (goto-char end)
+       (- (if-let (pos (re-search-backward "[?#]" beg t))
+              pos
+            end)
+          (if (evil-visual-state-p)
+              1
+            0)))
+     type)))
+
+;;;###autoload
+(evil-define-text-object evil-outer-url (count &optional _beg _end type)
+  "Text object to select the whole url at point."
+  (cl-destructuring-bind (beg . end)
+      (bounds-of-thing-at-point 'url)
+    (evil-range
+     beg (- end (if (evil-visual-state-p) 1 0))
+     type)))
+
+
 (nvmap :map emacs-lisp-mode-map
   "gr" #'evil-eval-region-operator)
 
-(nmap
+(nvmap "gc" #'evilnc-comment-operator)
+
+(omap! "a" evil-inner-arg evil-outer-arg)
+(omap! "c" evilnc-inner-comment evilnc-outer-commenter)
+(omap! "f" evil-inner-defun evil-inner-defun)
+(omap! "g" evil-whole-buffer evil-whole-buffer)
+(omap! "u" evil-inner-url evil-outer-url)
+(omap! "x" evil-inner-xml-attr evil-outer-xml-attr)
+
+(nvmap
   "]b" #'next-buffer
   "[b" #'previous-buffer
   ;; #TODO
@@ -125,8 +185,8 @@
   "]t" #'hl-todo-next
   "[t" #'hl-todo-previous
   "]e" #'next-error
-  "[e" #'previous-error
-  )
+  "[e" #'previous-error)
+
 
 (provide 'init-evil)
 ;;; init-evil.el ends here

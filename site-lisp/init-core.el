@@ -64,6 +64,10 @@
   (general-evil-setup t)
   (general-override-mode))
 
+(defmacro omap! (key inner outer)
+  (general-define-key key inner :keymaps 'evil-inner-text-objects-map)
+  (general-define-key key outer :keymaps 'evil-outer-text-objects-map))
+
 (use-package winer
   :hook (after-init . winner-mode))
 
