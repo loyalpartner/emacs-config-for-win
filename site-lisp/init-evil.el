@@ -40,25 +40,31 @@
     slime
     lispy))
 
-(setq evil-want-keybinding nil)
+
+(setq evil-want-keybinding nil
+      evil-symbol-word-search t)
 
 (use-package evil :straight t
+  :demand t
+  :after-call pre-command-hook find-file-hook
   :config
   (evil-mode 1))
 
 (use-package evil-escape :straight t
+  :after-call pre-command-hook
   :init
   (setq evil-escape-excluded-states '(normal visual multiedit emacs motion)
         evil-escape-excluded-major-modes '(neotree-mode treemacs-mode vterm-mode)
 	evil-escape-key-sequence "hh"
-        evil-escape-delay 0.3
-        evil-symbol-word-search t)
+        evil-escape-delay 0.3)
   (evil-define-key* '(insert replace visual operator) 'global "\C-g" #'evil-escape)
   :config
   (add-hook 'evil-escape-inhibit-functions #'minibufferp)
   (evil-escape-mode 1))
 
+
 (use-package evil-collection :straight t
+  :defer 1
   :config
   (setq evil-collection-mode-list
 	(seq-remove (lambda (mode)
@@ -74,27 +80,48 @@
 
 (use-package evil-surround
   :straight t
-  :config
-  (global-evil-surround-mode 1))
+  :commands (global-evil-surround-mode
+             evil-surround-edit
+             evil-Surround-edit
+             evil-surround-region)
+  :init
+  (evil-define-key 'operator evil-surround-mode-map "s" 'evil-surround-edit)
+  (evil-define-key 'operator evil-surround-mode-map "S" 'evil-Surround-edit)
+
+  (evil-define-key 'visual evil-surround-mode-map "S" 'evil-surround-region)
+  (evil-define-key 'visual evil-surround-mode-map "gS" 'evil-Surround-region))
 
 (use-package evil-visualstar
   :straight t
   :config
-  (global-evil-visualstar-mode 1))
+  :commands (evil-visualstar/begin-search
+             evil-visualstar/begin-search-forward
+             evil-visualstar/begin-search-backward)
+  :init
+  (evil-define-key* 'visual 'global
+    "*" #'evil-visualstar/begin-search-forward
+    "#" #'evil-visualstar/begin-search-backward))
 
-(use-package targets
-  :straight
-  (targets :host github :repo "noctuid/targets.el")
-  :config
-  (targets-setup 1)
-  (targets-define-to function 'evil-defun nil object
-		     :bind f 
-		     :keys "f"
-		     :linewise t
-		     :remote-key "r"))
+;; (use-package targets
+;;   :straight
+;;   (targets :host github :repo "noctuid/targets.el")
+;;   ;; :hook (pre-command-hook . targets-setup)
+;;   :after-call pre-command-hook 
+;;   :config
+;;   (targets-setup 1)
+;;   (targets-define-to function 'evil-defun nil object
+;; 		     :bind f 
+;; 		     :keys "f"
+;; 		     :linewise t
+;; 		     :remote-key "r"))
 
 (use-package evil-snipe
   :straight t
+  :commands (evil-snipe-mode
+             evil-snipe-override-mode
+             evil-snipe-local-mode
+             evil-snipe-override-local-mode)
+  :after-call pre-command-hook
   :init
   (setq evil-snipe-smart-case t
         evil-snipe-scope 'line
