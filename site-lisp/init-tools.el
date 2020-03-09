@@ -31,5 +31,9 @@
   :commands (link-hint-copy-link
 	     link-hint-open-link))
 
+(use-package counsel-projectile
+  :straight t
+  :commands (counsel-projectile))
+
 (provide 'init-tools)
 ;;; init-tools.el ends here
