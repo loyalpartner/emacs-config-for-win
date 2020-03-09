@@ -49,17 +49,31 @@
 ;;; https://gist.github.com/jcouyang/d7cf6c8011b3b9c3f9a7
 (setq vc-follow-symlinks nil)
 
-(use-package find-file-in-project
-  :straight t
-  :commands (find-file-in-project)
-  :config
-  (when IS-WINDOWS
-    (setq ffip-find-executable find-file-in-project-program)))
+;; (use-package find-file-in-project
+;;   :straight t
+;;   :commands (find-file-in-project)
+;;   :config
+;;   (when IS-WINDOWS
+;;     (setq ffip-find-executable find-file-in-project-program)))
 
 (use-package selectrum
   :straight t
+  :init
+ (add-hook 'pre-command-hook #'selectrum-mode)
   :config
-  (selectrum-mode 1))
+;					(selectrum-mode 1)
+  )
+
+(use-package selectrum-prescient
+  :after selectrum
+  :straight
+  (selectrum-prescient
+   :host github :repo "raxod502/prescient.el"
+   :files ("selectrum-prescient.el"))
+  :defer 1
+  :config
+  (prescient-persist-mode)
+  (selectrum-prescient-mode))
 
 (use-package general
   :straight t
@@ -72,17 +86,45 @@
   (general-define-key key outer :keymaps 'evil-outer-text-objects-map))
 
 (use-package winer
-  :hook (after-init . winner-mode))
+  :defer 1
+  ;; :hook (after-init . winner-mode)
+  )
 
+;; (use-package projectile
+;;   :straight t
+;;   :after-call after-find-file dired-before-readin-hook minibuffer-setup-hook
+;;   :commands (projectile-project-root
+;;              projectile-project-name
+;;              projectile-project-p
+;;              projectile-locate-dominating-file)
+;;   :init
+;;   (setq projectile-globally-ignored-files '(".DS_Store" "Icon
+;; " "TAGS")
+;;         projectile-globally-ignored-file-suffixes '(".elc" ".pyc" ".o")
+;;         projectile-kill-buffers-filter 'kill-only-files
+;;         projectile-ignored-projects '("~/" "/tmp"))
 
-(use-package selectrum-prescient
-  :straight
-  (selectrum-prescient
-    :host github :repo "raxod502/prescient.el"
-    :files ("selectrum-prescient.el"))
+;;   (global-set-key [remap evil-jump-to-tag] #'projectile-find-tag)
+;;   (global-set-key [remap find-tag]         #'projectile-find-tag)
+
+;;   :config
+;;   (projectile-mode +1))
+
+(use-package smartparens
+  :straight t
+  ;; Auto-close delimiters and blocks as you type. It's more powerful than that,
+  ;; but that is all Doom uses it for.
+  :after-call after-find-file 
+  ;; :hook (after-hook-init . smartparens)
+  :commands sp-pair sp-local-pair sp-with-modes sp-point-in-comment sp-point-in-string
   :config
-  (selectrum-prescient-mode +1)
-  (prescient-persist-mode +1))
+  ;; Load default smartparens rules for various languages
+  (require 'smartparens-config)
+  (smartparens-global-mode +1))
+
+(use-package rainbow-delimiters
+  :straight t
+  :defer t)
 
 (provide 'init-core)
 ;;; init-core.el ends here

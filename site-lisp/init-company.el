@@ -23,6 +23,7 @@
   :straight t
   :diminish company-mode
   :defines (company-dabbrev-ignore-case company-dabbrev-downcase)
+  :after-call pre-command-hook after-find-file
   :commands company-abort
   :init
   (setq company-minimum-prefix-length 2
@@ -39,7 +40,7 @@
         '(company-pseudo-tooltip-frontend
           company-echo-metadata-frontend))
   :config
-  (add-hook 'company-mode-hook #'evil-normalize-keymaps)
+  ;(add-hook 'company-mode-hook #'evil-normalize-keymaps)
 
   ;; Allow users to switch between backends on the fly. E.g. C-x C-s followed
   ;; by C-x C-n, will switch from `company-yasnippet' to
@@ -88,14 +89,7 @@
 ;; Better sorting and filtering
 (use-package company-prescient
   :straight t
-  :init (company-prescient-mode 1))
-
-(use-package yasnippet
-  :straight t
-  :config
-  (use-package yasnippet-snippets
-    :straight t)
-  (yas-global-mode 1))
+  :hook (company-mode . company-prescient-mode))
 
 (provide 'init-company)
 ;;; init-company.el ends here
