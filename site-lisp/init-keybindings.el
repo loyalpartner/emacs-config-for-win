@@ -45,9 +45,12 @@
   "b" '(nil :which-key "buffer")
   "f" '(nil :which-key "file")
   "g" '(nil :which-key "git")
+  "h" '(nil :which-key "help")
+  "s" '(nil :which-key "search")
   "w" '(:keymap evil-window-map :which-key "window")
   "h" '(:keymap help-map :which-key "help"))
 
+;; buffer
 (nvmap :prefix leader-key
   :keymaps 'override
   "bb" #'switch-to-buffer
@@ -56,12 +59,13 @@
   "bp" #'previous-buffer
   "bn" #'next-buffer)
 
+;; file
 (nvmap :prefix leader-key
   :keymaps 'override
   "ff" #'find-file
   "fr" #'find-recent-file
-  "fp" #'find-file-in-project
-  "SPC" #'find-file-in-project
+  "fp" #'counsel-projectile
+  "SPC" #'counsel-projectile
   "fs" #'save-buffer)
 
 ;; git
@@ -72,6 +76,7 @@
   "gS" #'magit-stage-file
   "gg" #'magit)
 
+;; help
 (nvmap :prefix leader-key
   :keymaps 'override
   "hb" nil
@@ -88,8 +93,7 @@
   (let* ((default-directory (if arg
 				(read-directory-name "Search directory: ")
 			      default-directory))
-	 (directory-name (directory-file-name default-directory))
-	 (prompt (format "rg [%s]: " directory-name)))
+	 (prompt (format "rg [%s]: " default-directory)))
 
     (counsel-rg nil default-directory nil prompt)))
 
@@ -119,7 +123,6 @@
   "u" #'winner-undo
   "C-r" #'winner-redo)
 
-;; 
 (nvmap :prefix leader-key
   :keymaps 'override
   "qq" #'save-buffers-kill-emacs)
