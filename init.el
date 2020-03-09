@@ -19,18 +19,28 @@
 ;;
 ;;; Code:
 
-(add-hook 'prog-mode-hook 'electric-pair-local-mode)
-(add-hook 'prog-mode-hook 'electric-indent-local-mode)
-
 (add-to-list 'load-path
              (expand-file-name "site-lisp" user-emacs-directory))
 
 (require 'init-straight)
-(require 'init-ui)
-(require 'init-core)
-(require 'init-evil)
-(require 'init-tools)
-(require 'init-vc)
-(require 'init-company)
-(require 'init-elisp)
-(require 'init-keybindings)
+(let (
+      ;; 加载的时候临时增大`gc-cons-threshold'以加速启动速度。
+      (gc-cons-threshold most-positive-fixnum)
+      ;; 清空避免加载远程文件的时候分析文件。
+      (file-name-handler-alist nil))
+  (require 'benchmark-init-modes)
+  (require 'benchmark-init)
+  (benchmark-init/activate)
+
+  ;; 下面才写你的其它配置
+
+  (require 'init-ui)
+  (require 'init-core)
+  (require 'init-evil)
+  (require 'init-editor)
+  (require 'init-tools)
+  (require 'init-vc)
+  (require 'init-company)
+  (require 'init-elisp)
+  (require 'init-lispy)
+  (require 'init-keybindings))

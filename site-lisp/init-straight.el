@@ -39,5 +39,58 @@
 (setq straight-vc-git-default-clone-depth 1)
 (straight-use-package 'use-package)
 
+;;; #TODO# study this code.
+(defvar doom--deferred-packages-alist '(t))
+(with-eval-after-load 'use-package-core
+  ;; Adds two keywords to `use-package' to expand its lazy-loading capabilities:
+  ;;
+  ;;   :after-call SYMBOL|LIST
+  ;;   :defer-incrementally SYMBOL|LIST|t
+  ;;
+  ;; Check out `use-package!'s documentation for more about these two.
+  (dolist (keyword '(:after-call))
+    (push keyword use-package-deferring-keywords)
+    (setq use-package-keywords
+          (use-package-list-insert keyword use-package-keywords :after)))
+
+  (defalias 'use-package-normalize/:after-call #'use-package-normalize-symlist)
+  (defun use-package-handler/:after-call (name _keyword hooks rest state)
+    (if (plist-get state :demand)
+        (use-package-process-keywords name rest state)
+      (let ((fn (make-symbol (format "doom--after-call-%s-h" name))))
+        (use-package-concat
+         `((fset ',fn
+                 (lambda (&rest _)
+                   ;; (doom-log "Loading deferred package %s from %s" ',name ',fn)
+                   (condition-case e
+                       ;; If `default-directory' is a directory that doesn't
+                       ;; exist or is unreadable, Emacs throws up file-missing
+                       ;; errors, so we set it to a directory we know exists and
+                       ;; is readable.
+                       (let ((default-directory user-emacs-directory))
+                         (require ',name))
+                     ((debug error)
+                      (message "Failed to load deferred package %s: %s" ',name e)))
+                   (when-let (deferral-list (assq ',name doom--deferred-packages-alist))
+                     (dolist (hook (cdr deferral-list))
+                       (advice-remove hook #',fn)
+                       (remove-hook hook #',fn))
+                     (delq deferral-list doom--deferred-packages-alist)
+                     (unintern ',fn nil)))))
+         (let (forms)
+           (dolist (hook hooks forms)
+             (push (if (string-match-p "-\\(?:functions\\|hook\\)$" (symbol-name hook))
+                       `(add-hook ',hook #',fn)
+                     `(advice-add #',hook :before #',fn))
+                   forms)))
+         `((unless (assq ',name doom--deferred-packages-alist)
+             (push '(,name) doom--deferred-packages-alist))
+           (nconc (assq ',name doom--deferred-packages-alist)
+                  '(,@hooks)))
+         (use-package-process-keywords name rest state))))))
+
+(use-package benchmark-init
+  :straight t)
+
 (provide 'init-straight)
 ;;; init-straight.el ends here
