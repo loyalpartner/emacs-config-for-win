@@ -35,6 +35,9 @@
 (global-hl-line-mode)
 (fset 'yes-or-no-p 'y-or-n-p)
 
+;; use text-mode in scratch when start it.
+(setq initial-major-mode 'text-mode)
+
 (setq mac-option-modifier 'super
       mac-command-modifier 'meta
       ns-function-modifier 'hyper)
