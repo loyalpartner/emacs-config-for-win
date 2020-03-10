@@ -89,8 +89,5 @@
                   '(,@hooks)))
          (use-package-process-keywords name rest state))))))
 
-(use-package benchmark-init
-  :straight t)
-
 (provide 'init-straight)
 ;;; init-straight.el ends here
