@@ -36,6 +36,7 @@ forge-database.sqlite
 *.eld
 
 # transient/os temp files
+custom.el
 *.cache-*
 *.log
 .directory

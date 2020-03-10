@@ -42,6 +42,7 @@
       mac-command-modifier 'meta
       ns-function-modifier 'hyper)
 
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (setq make-backup-files nil)
 (setq backup-directory-alist
       `(("." . ,(expand-file-name "saves" user-emacs-directory))))
