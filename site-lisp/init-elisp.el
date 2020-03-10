@@ -41,6 +41,10 @@
   "v" #'helpful-variable
   "k" #'helpful-key)
 
+(eval-after-load 'lispy
+  (nmap :keymaps '(emacs-lisp-mode-map override)
+    "gd" #'lispy-goto-symbol))
+
 ;;;###autoload
 (defun emacs-lisp-extend-imenu ()
   "Improve imenu support in `emacs-lisp-mode', including recognition for Doom's API."
