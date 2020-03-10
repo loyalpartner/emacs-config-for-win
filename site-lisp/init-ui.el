@@ -30,11 +30,12 @@
 ;;   :straight t
 ;;   :config (doom-modeline-mode 1))
 
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (use-package doom-themes
   :straight t
   :after-call pre-command-hook
   :init
-  (add-hook 'after-init-hook (lambda () (load-theme 'doom-one-light))))
+  (add-hook 'after-init-hook (lambda () (load-theme 'doom-one-light t))))
 
 (use-package which-key :straight t
   :commands which-key-mode
