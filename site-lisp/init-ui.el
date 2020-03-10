@@ -25,10 +25,10 @@
 ;;   (switch-to-buffer "*dashboard*")
 ;;   (dashboard-insert-startupify-lists))
 
-;; (use-package doom-modeline
-;;   :after-call pre-command-hook
-;;   :straight t
-;;   :config (doom-modeline-mode 1))
+(use-package doom-modeline
+  :after-call pre-command-hook
+  :straight t
+  :config (doom-modeline-mode 1))
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (use-package doom-themes
