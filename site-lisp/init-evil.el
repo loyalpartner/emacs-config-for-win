@@ -217,6 +217,32 @@ This excludes the protocol and querystring."
      beg (- end (if (evil-visual-state-p) 1 0))
      type)))
 
+;;;###autoload
+(defun evil-next-comment (count)
+  "Jump to the beginning of the COUNT-th commented region after point."
+  (interactive "p")
+  (let ((orig-pt (point)))
+    (require 'newcomment)
+    (dotimes (_ (abs count))
+      (cond ((> count 0)
+             (while (and (not (eobp)) (sp-point-in-comment))
+               (forward-line 1))
+             (unless (comment-search-forward (point-max) 'noerror)
+               (goto-char orig-pt)
+               (user-error "No comment after point")))
+            (t
+             (while (and (not (bobp)) (sp-point-in-comment))
+               (forward-line -1))
+             (unless (comment-search-backward nil 'noerror)
+               (goto-char orig-pt)
+               (user-error "No comment before point")))))))
+
+;;;###autoload
+(defun evil-previous-comment (count)
+  "Jump to the beginning of the COUNT-th commented region before point."
+  (interactive "p")
+  (evil-next-comment (- count)))
+
 
 (nvmap :map emacs-lisp-mode-map
   "gr" #'evil-eval-region-operator)
@@ -236,6 +262,8 @@ This excludes the protocol and querystring."
   ;; #TODO
   ;; "]f" #'+evil/next-file
   ;; "[f" #'+evil/previous-file
+  "[c" #'evil-previous-comment
+  "]c" #'evil-next-comment
   "]d" #'git-gutter:next-hunk
   "[d" #'git-gutter:previous-hunk
   "]t" #'hl-todo-next
