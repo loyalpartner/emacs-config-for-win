@@ -21,7 +21,7 @@
 
 (use-package auto-save
   :straight
-  (auto-save :host github :repo "manateelazycat/auto-save")
+  (auto-save :host github :repo "loyalpartner/auto-save")
   :config
   (setq auto-save-silent t)
   (auto-save-enable)

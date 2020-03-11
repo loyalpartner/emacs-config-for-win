@@ -40,16 +40,16 @@
         '(company-pseudo-tooltip-frontend
           company-echo-metadata-frontend))
   :config
-  ;(add-hook 'company-mode-hook #'evil-normalize-keymaps)
+                                        ;(add-hook 'company-mode-hook #'evil-normalize-keymaps)
 
   ;; Allow users to switch between backends on the fly. E.g. C-x C-s followed
   ;; by C-x C-n, will switch from `company-yasnippet' to
   ;; `company-dabbrev-code'.
   (advice-add #'company-begin-backend :before (lambda (orig-fun &rest args)
-  						(company-abort)))
+  						                        (company-abort)))
 
   (general-def company-active-map
-    "C-w"     nil   ; don't interfere with `evil-delete-backward-word'
+    "C-w"     nil             ; don't interfere with `evil-delete-backward-word'
     "C-n"     #'company-select-next
     "C-p"     #'company-select-previous
     "C-j"     #'company-select-next
@@ -67,24 +67,18 @@
     [backtab] #'company-select-previous)
   :hook (after-init . global-company-mode))
 
-;; (imap [tab] (general-predicate-dispatch nil
-;; 	      (and (yas-maybe-expand-abbrev-key-filter 'yas-expand)
-;; 		   (bound-and-true-p yas-minor-mode))
-;; 	      #'yas-expand))
-
 (imap :prefix "C-x"
   :keymaps 'override
   ;; #TODO Omni-completion
   ;; "C-l"    #'+company/whole-lines
-  ;; "C-k"    #'+company/dict-or-keywords
+  "C-k"    #'company-english-helper-search
   "C-f"    #'company-files
   "C-]"    #'company-etags
   "s"      #'company-ispell
   "C-s"    #'company-yasnippet
   "C-o"    #'company-capf
   "C-n"    #'company-dabbrev
-  "C-p"    #'company-dabbrev-code
-  )
+  "C-p"    #'company-dabbrev-code)
 
 ;; Better sorting and filtering
 (use-package company-prescient

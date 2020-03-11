@@ -79,6 +79,12 @@
 ;; 		(setcar args (format "\"%s\"" word-arg))
 ;; 		(apply orig-fn args))))
 
+
+(use-package company-english-helper
+  :straight
+  (company-english-helper :type git :flavor melpa :host github :repo "manateelazycat/company-english-helper")
+  :commands toggle-company-english-helper company-english-helper-search)
+
 (imap "M-c" #'pyim-convert-string-at-point)
 
 (nvmap "g." #'sdcv-search-pointer+)
