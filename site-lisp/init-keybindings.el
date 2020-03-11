@@ -45,6 +45,7 @@
   "b" '(nil :which-key "buffer")
   "f" '(nil :which-key "file")
   "g" '(nil :which-key "git")
+  "go" '(nil :which-key "open in browser")
   "h" '(nil :which-key "help")
   "s" '(nil :which-key "search")
   "w" '(:keymap evil-window-map :which-key "window")
@@ -74,8 +75,17 @@
   "gr" #'git-gutter:revert-hunk
   "gs" #'git-gutter:stage-hunk
   "gS" #'magit-stage-file
-  "gg" #'magit)
+  "gg" #'magit
 
+  "goo" '(browse-at-remote :which-key "browse file or region")
+  "goh" '(+vc/browse-at-remote-homepage :which-key "browse homepage")
+  "gor" '(forge-browse-remote :which-key "brose remote")
+  "goc" '(forge-browse-commit :which-key "browse commit")
+  "goi" '(forge-browse-issue :which-key "browse an issue")
+  "gop" '(forge-browse-pullreq :which-key "browse a pull request")
+  "goI" '(forge-browse-issues :which-key "browse issues")
+  "goP" '(forge-browse-pullreqs :which-key "browse pull requests"))
+ 
 ;; help
 (nvmap :prefix leader-key
   :keymaps 'override
