@@ -41,5 +41,11 @@
   :straight t
   :commands (counsel-projectile))
 
+(use-package eyebrowse
+  :straight t
+  :after-call pre-command-hook
+  :config
+  (eyebrowse-mode 1))
+
 (provide 'init-tools)
 ;;; init-tools.el ends here

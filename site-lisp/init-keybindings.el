@@ -133,6 +133,19 @@
   "u" #'winner-undo
   "C-r" #'winner-redo)
 
+
+;; workspace
+(nvmap :keymaps 'override
+  "M-1" #'eyebrowse-switch-to-window-config-1
+  "M-2" #'eyebrowse-switch-to-window-config-2
+  "M-3" #'eyebrowse-switch-to-window-config-3
+  "M-4" #'eyebrowse-switch-to-window-config-4
+  "M-5" #'eyebrowse-switch-to-window-config-5
+  "M-6" #'eyebrowse-switch-to-window-config-6
+  "M-7" #'eyebrowse-switch-to-window-config-7
+  "M-8" #'eyebrowse-switch-to-window-config-8
+  "M-9" #'eyebrowse-switch-to-window-config-9)
+
 (nvmap :prefix leader-key
   :keymaps 'override
   "qq" #'save-buffers-kill-emacs)

@@ -247,7 +247,10 @@ This excludes the protocol and querystring."
 (nvmap :map emacs-lisp-mode-map
   "gr" #'evil-eval-region-operator)
 
-(nvmap "gc" #'evilnc-comment-operator)
+(nvmap :keymaps 'override
+  "gc" #'evilnc-comment-operator
+  "gT" #'eyebrowse-prev-window-config
+  "gt" #'eyebrowse-prev-window-config)
 
 (omap! "a" evil-inner-arg evil-outer-arg)
 (omap! "c" evilnc-inner-comment evilnc-outer-commenter)
