@@ -144,6 +144,12 @@
   :straight t
   :commands (evil-inner-arg evil-outer-arg))
 
+(use-package evil-multiedit
+  :straight t
+  :after-call pre-command-hook
+  :config
+  (evil-multiedit-default-keybinds))
+
 ;;;###autoload###
 (evil-define-operator evil-eval-region-operator (beg end)
   "Evaluate selection or sends it to the open REPL, if available."
