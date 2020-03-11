@@ -150,6 +150,14 @@
   :config
   (evil-multiedit-default-keybinds))
 
+(use-package evil-lion
+  :straight t
+  :commands (evil-lion-left evil-lion-right)
+  :init
+  (nvmap
+    "gl" 'evil-lion-left
+    "gL" 'evil-lion-right))
+
 ;;;###autoload###
 (evil-define-operator evil-eval-region-operator (beg end)
   "Evaluate selection or sends it to the open REPL, if available."
