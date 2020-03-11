@@ -47,5 +47,20 @@
   :config
   (eyebrowse-mode 1))
 
+(use-package winum
+  :straight t
+  :after-call pre-command-hook find-file-hook
+  :config
+  (winum-setup))
+
+;;;###autoload
+(defun winum-setup ()
+  (winum-mode 1)
+  (mapc (lambda (n)
+          (let* ((key (number-to-string n))
+                 (func (intern (format "winum-select-window-%d" n))))
+            (nvmap :prefix leader-key key func)))
+        (number-sequence 1 9)))
+
 (provide 'init-tools)
 ;;; init-tools.el ends here
