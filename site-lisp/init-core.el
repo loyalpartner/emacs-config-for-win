@@ -110,6 +110,22 @@
 ;;   :config
 ;;   (projectile-mode +1))
 
+(use-package undo-tree
+  :straight t
+  :after-call after-find-file
+  :config
+  (setq undo-tree-visualizer-diff t
+        undo-tree-auto-save-history t
+        undo-tree-enable-undo-in-region t
+        ;; Increase undo-limits by a factor of ten to avoid emacs prematurely
+        ;; truncating the undo history and corrupting the tree. See
+        ;; https://github.com/syl20bnr/spacemacs/issues/12110
+        undo-limit 800000
+        undo-strong-limit 12000000
+        undo-outer-limit 120000000
+        undo-tree-history-directory-alist
+        `(("." . ,(concat user-emacs-directory "undo-tree-hist/")))))
+
 (use-package smartparens
   :straight t
   ;; Auto-close delimiters and blocks as you type. It's more powerful than that,
