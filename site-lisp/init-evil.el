@@ -41,6 +41,11 @@
     lispy))
 
 
+(defface evil-tooltip-face
+  '((t (:foreground "green" :background "gray12")))
+  "Face for sdcv tooltip"
+  :group 'sdcv)
+
 (setq evil-want-keybinding nil
       evil-symbol-word-search t)
 
@@ -144,7 +149,17 @@
   "Evaluate selection or sends it to the open REPL, if available."
   :move-point nil
   (interactive "<r>")
-  (print (eval-region beg end) ))
+  (let* ((expr (format "(progn %s)" (buffer-substring-no-properties beg end)))
+	 (result (pp-to-string (eval (read expr))))
+	 (posframe-buffer-name "*eval-result*"))
+    (posframe-show posframe-buffer-name
+		   :string (format "⇒ %s" result)
+		   :position (line-end-position)
+		   :background-color (face-attribute 'evil-tooltip-face :background)
+		   :foreground-color (face-attribute 'evil-tooltip-face :foreground))
+    (unwind-protect
+	(push (read-event) unread-command-events)
+      (posframe-delete posframe-buffer-name))))
 
 ;;;###autoload
 (evil-define-text-object evil-whole-buffer (count &optional _beg _end type)
