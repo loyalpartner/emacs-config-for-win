@@ -35,6 +35,23 @@
 (global-hl-line-mode)
 (fset 'yes-or-no-p 'y-or-n-p)
 
+;; Indentation
+(setq-default tab-width 4
+              tab-always-indent t
+              indent-tabs-mode nil
+              fill-column 80)
+
+;; Word wrapping
+(setq-default word-wrap t
+              truncate-lines t
+              truncate-partial-width-windows nil)
+
+(setq sentence-end-double-space nil
+      delete-trailing-lines nil
+      require-final-newline t
+      tabify-regexp "^\t* [ \t]+")  ; for :retab
+
+
 ;; use text-mode in scratch when start it.
 (setq initial-major-mode 'text-mode)
 
@@ -59,9 +76,9 @@
 (use-package selectrum
   :straight t
   :init
- (add-hook 'pre-command-hook #'selectrum-mode)
+  (add-hook 'pre-command-hook #'selectrum-mode)
   :config
-;					(selectrum-mode 1)
+                                        ;					(selectrum-mode 1)
   )
 
 (use-package selectrum-prescient
