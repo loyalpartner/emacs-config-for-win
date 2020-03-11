@@ -24,7 +24,13 @@
   (auto-save :host github :repo "manateelazycat/auto-save")
   :config
   (setq auto-save-silent t)
-  (auto-save-enable))
+  (auto-save-enable)
+  (setq auto-save-disable-predicates
+        '((lambda ()
+            (string-suffix-p "gpg"
+                             (file-name-extension
+                              (buffer-name)) t)))))
+
 
 (use-package link-hint
   :straight t
