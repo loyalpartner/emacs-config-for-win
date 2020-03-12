@@ -62,7 +62,7 @@
             (nvmap
               :prefix leader-key
               :keymap 'override
-              key `(,func :which-key ,(format "win%s" n)))))
+              key `(,func :which-key ,(format "[%s]" n)))))
         (number-sequence 1 9)))
 
 (provide 'init-tools)
