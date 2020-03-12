@@ -37,8 +37,10 @@
 	     #'pop-to-buffer)))
     (funcall f "*scratch*")))
 
-(general-define-key
-   :keymaps '(normal visual) "gc" #'evilnc-comment-operator)
+(nvmap
+  "gc" #'evilnc-comment-operator
+  "gs SPC" #'evil-avy-goto-char-timer
+  "gss" #'evil-avy-goto-char-2)
 
 (nvmap :prefix leader-key
   :keymaps 'override
