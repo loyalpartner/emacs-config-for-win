@@ -54,29 +54,33 @@
   "w" '(:keymap evil-window-map :which-key "window")
   "h" '(:keymap help-map :which-key "help"))
 
+;;;###autoload
 (defun switch-to-user-buffer ()
   (interactive)
   (switch-to-buffer (completing-read
                      "buffers:"
-                     (mapcar #'buffer-name
+                     (mapcar #'buffer-file-name
                              (seq-filter #'buffer-file-name
                                          (buffer-list))))))
 
+;;;###autoload
 (defun next-user-buffer ()
   "next user buffer"
   (interactive)
   (when (seq-find #'buffer-file-name (buffer-list))
     (while (progn
              (next-buffer)
-             (not (buffer-file-name (current-buffer)))))))
+             (not buffer-file-name)))))
 
+
+;;;###autoload
 (defun previous-user-buffer ()
   "previous user buffer"
   (interactive)
   (when (seq-find #'buffer-file-name (buffer-list))
     (while (progn
              (previous-buffer)
-             (not (buffer-file-name (current-buffer)))))))
+             (not buffer-file-name)))))
 
 ;; buffer
 (nvmap :prefix leader-key
