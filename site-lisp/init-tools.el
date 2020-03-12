@@ -59,7 +59,10 @@
   (mapc (lambda (n)
           (let* ((key (number-to-string n))
                  (func (intern (format "winum-select-window-%d" n))))
-            (nvmap :prefix leader-key key func)))
+            (nvmap
+              :prefix leader-key
+              :keymap 'override
+              key `(,func :which-key ,(format "win%s" n)))))
         (number-sequence 1 9)))
 
 (provide 'init-tools)
