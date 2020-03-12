@@ -66,6 +66,8 @@
 ;;; https://gist.github.com/jcouyang/d7cf6c8011b3b9c3f9a7
 (setq vc-follow-symlinks nil)
 
+(save-place-mode 1)
+
 ;; (use-package find-file-in-project
 ;;   :straight t
 ;;   :commands (find-file-in-project)
