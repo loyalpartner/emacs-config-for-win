@@ -27,7 +27,7 @@
   (auto-save-enable)
   (setq auto-save-disable-predicates
         '((lambda ()
-            (string-suffix-p "el" (buffer-name) t))
+            (string-suffix-p "gpg" (buffer-name) t))
           (lambda ()
             (string-suffix-p "lua" (buffer-name) t)))))
 
