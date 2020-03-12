@@ -48,17 +48,42 @@
   "go" '(nil :which-key "open in browser")
   "h" '(nil :which-key "help")
   "s" '(nil :which-key "search")
+  "t" '(nil :which-key "toggle")
   "w" '(:keymap evil-window-map :which-key "window")
   "h" '(:keymap help-map :which-key "help"))
+
+(defun switch-to-user-buffer ()
+  (interactive)
+  (switch-to-buffer (completing-read
+                     "buffers:"
+                     (mapcar #'buffer-name
+                             (seq-filter #'buffer-file-name
+                                         (buffer-list))))))
+
+(defun next-user-buffer ()
+  "next user buffer"
+  (interactive)
+  (when (seq-find #'buffer-file-name (buffer-list))
+    (while (progn
+             (next-buffer)
+             (not (buffer-file-name (current-buffer)))))))
+
+(defun previous-user-buffer ()
+  "previous user buffer"
+  (interactive)
+  (when (seq-find #'buffer-file-name (buffer-list))
+    (while (progn
+             (previous-buffer)
+             (not (buffer-file-name (current-buffer)))))))
 
 ;; buffer
 (nvmap :prefix leader-key
   :keymaps 'override
-  "bb" #'switch-to-buffer
+  "bb" #'switch-to-user-buffer
   "bx" #'find-scratch
   "bd" #'kill-this-buffer
-  "bp" #'previous-buffer
-  "bn" #'next-buffer)
+  "bp" #'previous-user-buffer
+  "bn" #'next-user-buffer)
 
 ;; file
 (nvmap :prefix leader-key
