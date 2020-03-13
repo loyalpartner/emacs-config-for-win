@@ -39,6 +39,7 @@
   (require 'init-ui)
   (require 'init-core)
   (require 'init-evil)
+  (require 'init-popup)
   (require 'init-chinese)
   (require 'init-editor)
   (require 'init-tools)
