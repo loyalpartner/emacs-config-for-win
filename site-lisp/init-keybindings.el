@@ -19,7 +19,6 @@
 ;;
 ;;; Code:
 ;;;;;;;;;;;;;;;;; 
-(defvar leader-key "SPC")
 
 ;;;###autoload
 (defun find-recent-file ()

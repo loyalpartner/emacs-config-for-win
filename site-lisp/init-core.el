@@ -75,6 +75,8 @@
 ;;   (when IS-WINDOWS
 ;;     (setq ffip-find-executable find-file-in-project-program)))
 
+(defvar leader-key "SPC")
+
 (use-package selectrum
   :straight t
   :init
