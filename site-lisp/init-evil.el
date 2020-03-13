@@ -47,13 +47,20 @@
   :group 'sdcv)
 
 (setq evil-want-keybinding nil
+      ;; evil-insert-state-map nil
       evil-symbol-word-search t)
 
 (use-package evil :straight t
   :demand t
   :after-call pre-command-hook find-file-hook
   :config
-  (evil-mode 1))
+  (evil-mode 1)
+  (general-def :states 'insert
+    "C-a" nil
+    "C-e" nil
+    "C-d" nil
+    "C-s" nil
+    "C-k" nil))
 
 (use-package evil-escape :straight t
   :after-call pre-command-hook
@@ -85,16 +92,9 @@
 
 (use-package evil-surround
   :straight t
-  :commands (global-evil-surround-mode
-             evil-surround-edit
-             evil-Surround-edit
-             evil-surround-region)
-  :init
-  (evil-define-key 'operator evil-surround-mode-map "s" 'evil-surround-edit)
-  (evil-define-key 'operator evil-surround-mode-map "S" 'evil-Surround-edit)
-
-  (evil-define-key 'visual evil-surround-mode-map "S" 'evil-surround-region)
-  (evil-define-key 'visual evil-surround-mode-map "gS" 'evil-Surround-region))
+  :after-call pre-command-hook
+  :config
+  (global-evil-surround-mode 1))
 
 (use-package evil-visualstar
   :straight t
@@ -149,6 +149,9 @@
   :after-call pre-command-hook
   :config
   (evil-multiedit-default-keybinds))
+
+(use-package multiple-cursors
+  :straight (multiple-cursors :host github :repo "magnars/multiple-cursors.el"))
 
 (use-package evil-lion
   :straight t
@@ -250,7 +253,7 @@ This excludes the protocol and querystring."
 (nvmap :keymaps 'override
   "gc" #'evilnc-comment-operator
   "gT" #'eyebrowse-prev-window-config
-  "gt" #'eyebrowse-prev-window-config)
+  "gt" #'eyebrowse-next-window-config)
 
 (omap! "a" evil-inner-arg evil-outer-arg)
 (omap! "c" evilnc-inner-comment evilnc-outer-commenter)
