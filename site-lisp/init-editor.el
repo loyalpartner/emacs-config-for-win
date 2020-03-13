@@ -21,11 +21,16 @@
 
 (use-package yasnippet
   :straight t
-  ;:hook (after-init . yas-global-mode)
-  :hook ((text-mode prog-mode conf-mode snippet-mode) . yas-global-mode))
+  ;; :after-call pre-command-hook
+  :defer 3
+  ;; :hook (after-init . yas-global-mode)
+  ;; :hook ((text-mode prog-mode conf-mode snippet-mode) . yas-global-mode)
+  :config
+  (yas-global-mode 1))
 
 (use-package yasnippet-snippets
     :straight t
-    :defer 1)
+    :after yasnippet
+    :defer t)
 
 (provide 'init-editor)
