@@ -22,7 +22,6 @@
 (use-package magit
   :straight t
   :init
-  (add-hook 'magit-mode-hook #'hide-mode-line-mode)
   :commands magit)
 
 (use-package forge
@@ -85,6 +84,10 @@ is deferred until the file is saved. Respects `git-gutter:disabled-modes'."
 
 (advice-add #'magit-stage-file   :after #'vc-gutter-update-h)
 (advice-add #'magit-unstage-file :after #'vc-gutter-update-h)
+
+(set-popup-rule! "^\\(?:\\*magit\\|magit:\\| \\*transient\\*\\)" :ignore t)
+(set-popup-rule! "^\\*?[0-9]+:\\(?:new-\\|[0-9]+$\\)" :size 0.45 :modeline t :ttl 0 :quit nil)
+(set-popup-rule! "^\\*\\(?:[^/]+/[^ ]+ #[0-9]+\\*$\\|Issues\\|Pull-Requests\\|forge\\)" :ignore t)
 
 (provide 'init-vc)
 ;;; init-vc.el ends here

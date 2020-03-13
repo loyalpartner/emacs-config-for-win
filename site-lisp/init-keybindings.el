@@ -112,7 +112,7 @@
   "gr" #'git-gutter:revert-hunk
   "gs" #'git-gutter:stage-hunk
   "gS" #'magit-stage-file
-  "gg" #'magit
+  "gg" #'magit-status
 
   "goo" '(browse-at-remote :which-key "browse file or region")
   "goh" '(+vc/browse-at-remote-homepage :which-key "browse homepage")
