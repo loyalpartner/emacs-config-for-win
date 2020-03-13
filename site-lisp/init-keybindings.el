@@ -57,11 +57,13 @@
 ;;;###autoload
 (defun switch-to-user-buffer ()
   (interactive)
-  (switch-to-buffer (completing-read
-                     "buffers:"
-                     (mapcar #'buffer-file-name
-                             (seq-filter #'buffer-file-name
-                                         (buffer-list))))))
+  (let* ((user-buffer-list (seq-filter #'buffer-file-name
+                                       (buffer-list)))
+         (choosed-buffer (completing-read "buffers:"
+                                          (mapcar #'buffer-file-name user-buffer-list))))
+    (switch-to-buffer (seq-find (lambda (buffer)
+                                  (string= choosed-buffer (buffer-file-name buffer)))
+                                user-buffer-list))))
 
 ;;;###autoload
 (defun next-user-buffer ()
