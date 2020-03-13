@@ -35,7 +35,11 @@
 (use-package link-hint
   :straight t
   :commands (link-hint-copy-link
-	     link-hint-open-link))
+             link-hint-open-link)
+  :init
+  (nvmap Info-mode-map "o" #'link-hint-open-link)
+  (nvmap help-mode-map "o" #'link-hint-open-link)
+  (nvmap helpful-mode-map "o" #'link-hint-open-link))
 
 (use-package counsel-projectile
   :straight t
