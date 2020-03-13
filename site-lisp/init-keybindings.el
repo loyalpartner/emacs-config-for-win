@@ -32,11 +32,12 @@
 (defun find-scratch (&optional args)
   (interactive "P")
   (let ((f (if args
-	     #'switch-to-buffer
-	     #'pop-to-buffer)))
+	           #'switch-to-buffer
+	         #'pop-to-buffer)))
     (funcall f "*scratch*")))
 
 (nvmap
+  "C-`" #'+popup/toggle
   "gc" #'evilnc-comment-operator
   "gs SPC" #'evil-avy-goto-char-timer
   "gss" #'evil-avy-goto-char-2)
@@ -56,13 +57,17 @@
 ;;;###autoload
 (defun switch-to-user-buffer ()
   (interactive)
-  (let* ((user-buffer-list (seq-filter #'buffer-file-name
-                                       (buffer-list)))
-         (choosed-buffer (completing-read "buffers:"
-                                          (mapcar #'buffer-file-name user-buffer-list))))
-    (switch-to-buffer (seq-find (lambda (buffer)
-                                  (string= choosed-buffer (buffer-file-name buffer)))
-                                user-buffer-list))))
+  (let* ((user-buffer-list (seq-filter #'buffer-file-name (buffer-list)))
+         (optional-user-buffer-list (remq (current-buffer) user-buffer-list))
+         (choosed-buffer-file-name (completing-read "buffers:"
+                                                    (mapcar
+                                                     #'buffer-file-name
+                                                     optional-user-buffer-list)))
+         (choosed-buffer
+          (seq-find (lambda (buffer)
+                      (string= choosed-buffer-file-name buffer-file-name))
+                    optional-user-buffer-list)))
+    (switch-to-buffer choosed-buffer)))
 
 ;;;###autoload
 (defun next-user-buffer ()
@@ -158,6 +163,14 @@
   "sp" '(counsel-rg :which-key "search project")
   "ss" '(swiper-isearch :which-key "search buffer")
   "sS" '(swiper-isearch-thing-at-point :which-key "search buffer at point"))
+
+;; toggle
+(nvmap :prefix leader-key
+  :keymaps 'override
+  "ti" #'lisp-interaction-mode
+  "tt" #'text-mode
+  "tl" #'linum-mode)
+
 
 ;; window
 (general-def evil-window-map
