@@ -29,6 +29,7 @@
   (setq company-minimum-prefix-length 2
         company-tooltip-limit 14
         company-dabbrev-downcase nil
+        ;; company-idle-delay 0
         company-dabbrev-ignore-case nil
         company-dabbrev-code-other-buffers t
         company-tooltip-align-annotations t

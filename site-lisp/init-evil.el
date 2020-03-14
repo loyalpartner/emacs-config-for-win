@@ -60,14 +60,17 @@
     "C-e" nil
     "C-d" nil
     "C-s" nil
-    "C-k" nil))
+    "C-k" nil
+    "C-n" nil
+    "C-p" nil
+    "C-y" nil))
 
 (use-package evil-escape :straight t
   :after-call pre-command-hook
   :init
   (setq evil-escape-excluded-states '(normal visual multiedit emacs motion)
         evil-escape-excluded-major-modes '(neotree-mode treemacs-mode vterm-mode)
-	evil-escape-key-sequence "hh"
+        evil-escape-key-sequence nil
         evil-escape-delay 0.3)
   (evil-define-key* '(insert replace visual operator) 'global "\C-g" #'evil-escape)
   :config
@@ -150,6 +153,7 @@
   :config
   (evil-multiedit-default-keybinds))
 
+;;; #TODO optimize.
 (use-package multiple-cursors
   :straight (multiple-cursors :host github :repo "magnars/multiple-cursors.el"))
 
@@ -268,6 +272,8 @@ This excludes the protocol and querystring."
   ;; #TODO
   ;; "]f" #'+evil/next-file
   ;; "[f" #'+evil/previous-file
+  ;; "]f" #'lispyville-beginning-of-next-defun
+  ;; "[f" #'lispyville-beginning-of-defun
   "[c" #'evil-previous-comment
   "]c" #'evil-next-comment
   "]d" #'git-gutter:next-hunk

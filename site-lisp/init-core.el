@@ -42,9 +42,9 @@
               fill-column 80)
 
 ;; Word wrapping
-(setq-default word-wrap t
-              truncate-lines t
-              truncate-partial-width-windows nil)
+;; (setq-default word-wrap t
+;;               truncate-lines t
+;;               truncate-partial-width-windows nil)
 
 (setq sentence-end-double-space nil
       delete-trailing-lines nil

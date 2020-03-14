@@ -26,7 +26,13 @@
 
 (use-package popup-mode
   :straight (popup-mode :host github :repo "aaronjensen/emacs-popup-mode")
+  :init
+  (setq popup-mode-all-rule t
+        popup-mode-enable-hacks t)
   :config
+  ;; (set-popup-rules!
+  ;;   '(("^\\*scratch\\*" :slot 2 :vslot 2 :size 0.35 :select t)))
+  
   (+popup-mode 1))
 
 (provide 'init-popup)
