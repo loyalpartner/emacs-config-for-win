@@ -19,8 +19,13 @@
 ;;
 ;;; Code:
 
-(use-package doom-popup
-  :straight (doom-popup :host github :repo "loyalpartner/doom-popup")
+;; (use-package doom-popup
+;;   :straight (doom-popup :host github :repo "loyalpartner/doom-popup")
+;;   :config
+;;   (+popup-mode 1))
+
+(use-package popup-mode
+  :straight (popup-mode :host github :repo "aaronjensen/emacs-popup-mode")
   :config
   (+popup-mode 1))
 
