@@ -30,8 +30,8 @@
   (setq popup-mode-all-rule t
         popup-mode-enable-hacks t)
   :config
-  ;; (set-popup-rules!
-  ;;   '(("^\\*scratch\\*" :slot 2 :vslot 2 :size 0.35 :select t)))
+  (set-popup-rules!
+    '(("^\\*scratch\\*" :slot 2 :vslot 2 :size 0.40 :select t)))
   
   (+popup-mode 1))
 
