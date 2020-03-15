@@ -37,9 +37,9 @@
   ;; 下面才写你的其它配置
 
   (require 'init-ui)
+  (require 'init-popup)
   (require 'init-core)
   (require 'init-evil)
-  (require 'init-popup)
   (require 'init-chinese)
   (require 'init-editor)
   (require 'init-tools)
@@ -47,4 +47,5 @@
   (require 'init-company)
   (require 'init-elisp)
   (require 'init-lispy)
+  (require 'init-pdf)
   (require 'init-keybindings))
