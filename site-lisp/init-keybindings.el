@@ -36,14 +36,15 @@
 	         #'pop-to-buffer)))
     (funcall f "*scratch*")))
 
-(nvmap
+(nvmap override
   "C-`" #'+popup/toggle
+  "M-x" #'counsel-M-x
   "gc" #'evilnc-comment-operator
   "gs SPC" #'evil-avy-goto-char-timer
   "gss" #'evil-avy-goto-char-2)
 
-(nvmap :prefix leader-key
-  :keymaps 'override
+(nvmap override
+  :prefix leader-key
   "b" '(nil :which-key "buffer")
   "f" '(nil :which-key "file")
   "g" '(nil :which-key "git")
@@ -52,7 +53,8 @@
   "s" '(nil :which-key "search")
   "t" '(nil :which-key "toggle")
   "w" '(:keymap evil-window-map :which-key "window")
-  "h" '(:keymap help-map :which-key "help"))
+  "h" '(:keymap help-map :which-key "help")
+  "u" #'universal-argument)
 
 ;;;###autoload
 (defun switch-to-user-buffer ()
@@ -65,7 +67,7 @@
                                                      optional-user-buffer-list)))
          (choosed-buffer
           (seq-find (lambda (buffer)
-                      (string= choosed-buffer-file-name buffer-file-name))
+                      (string= choosed-buffer-file-name (buffer-file-name buffer)))
                     optional-user-buffer-list)))
     (switch-to-buffer choosed-buffer)))
 
@@ -89,8 +91,8 @@
              (not buffer-file-name)))))
 
 ;; buffer
-(nvmap :prefix leader-key
-  :keymaps 'override
+(nvmap override
+  :prefix leader-key
   "bb" #'switch-to-user-buffer
   "bx" #'find-scratch
   "bd" #'kill-this-buffer
@@ -98,8 +100,8 @@
   "bn" #'next-user-buffer)
 
 ;; file
-(nvmap :prefix leader-key
-  :keymaps 'override
+(nvmap override
+  :prefix leader-key
   "ff" #'find-file
   "fr" #'find-recent-file
   "fp" #'counsel-projectile
@@ -107,25 +109,25 @@
   "fs" #'save-buffer)
 
 ;; git
-(nvmap :prefix leader-key
-  :keymaps 'override
-  "gr" #'git-gutter:revert-hunk
-  "gs" #'git-gutter:stage-hunk
-  "gS" #'magit-stage-file
-  "gg" #'magit-status
+(nvmap override
+  :prefix leader-key
+ "gr" #'git-gutter:revert-hunk
+ "gs" #'git-gutter:stage-hunk
+ "gS" #'magit-stage-file
+ "gg" #'magit-status
 
-  "goo" '(browse-at-remote :which-key "browse file or region")
-  "goh" '(+vc/browse-at-remote-homepage :which-key "browse homepage")
-  "gor" '(forge-browse-remote :which-key "brose remote")
-  "goc" '(forge-browse-commit :which-key "browse commit")
-  "goi" '(forge-browse-issue :which-key "browse an issue")
-  "gop" '(forge-browse-pullreq :which-key "browse a pull request")
-  "goI" '(forge-browse-issues :which-key "browse issues")
-  "goP" '(forge-browse-pullreqs :which-key "browse pull requests"))
+ "goo" '(browse-at-remote :which-key "browse file or region")
+ "goh" '(+vc/browse-at-remote-homepage :which-key "browse homepage")
+ "gor" '(forge-browse-remote :which-key "brose remote")
+ "goc" '(forge-browse-commit :which-key "browse commit")
+ "goi" '(forge-browse-issue :which-key "browse an issue")
+ "gop" '(forge-browse-pullreq :which-key "browse a pull request")
+ "goI" '(forge-browse-issues :which-key "browse issues")
+ "goP" '(forge-browse-pullreqs :which-key "browse pull requests"))
  
 ;; help
-(nvmap :prefix leader-key
-  :keymaps 'override
+(nvmap override
+  :prefix leader-key
   "hb" nil
   ;; #TODO
   "hbi" #'which-key-show-minor-mode-keymap
@@ -133,6 +135,12 @@
   "hbm" #'which-key-show-major-mode
   "hbk" #'which-key-show-keymap
   "hbt" #'which-key-show-top-level)
+
+;; PROJECT:
+(nvmap override
+  :prefix leader-key
+  "pp" '(counsel-projectile-switch-project :which-key "switch project")
+ )
 
 ;;;###autoload
 (defun search-cwd (&optional arg)
@@ -150,8 +158,8 @@
   (search-cwd 'other))
 
 ;; search
-(nvmap :prefix leader-key
-  :keymaps 'override
+(nvmap override
+  :prefix leader-key
   "sb" '(counsel-grep-or-swiper :which-key "search current buffer")
   "sd" '(search-cwd :which-key "search current directory")
   "sD" '(search-other-cwd :which-key "search current directory")
@@ -161,12 +169,13 @@
   "sL" '(link-hint-copy-link :which-key "copy link")
   "so" '(counsel-ace-link :which-key "#TODO")
   "sp" '(counsel-rg :which-key "search project")
+  "pp" '(counsel-projectile-switch-project :which-key "switch project")
   "ss" '(swiper-isearch :which-key "search buffer")
   "sS" '(swiper-isearch-thing-at-point :which-key "search buffer at point"))
 
 ;; toggle
-(nvmap :prefix leader-key
-  :keymaps 'override
+(nvmap override
+  :prefix leader-key
   "ti" #'lisp-interaction-mode
   "tt" #'text-mode
   "tl" #'linum-mode)
@@ -180,16 +189,16 @@
 
 
 ;; workspace
-(nvmap :keymaps 'override
-  "M-1" #'eyebrowse-switch-to-window-config-1
-  "M-2" #'eyebrowse-switch-to-window-config-2
-  "M-3" #'eyebrowse-switch-to-window-config-3
-  "M-4" #'eyebrowse-switch-to-window-config-4
-  "M-5" #'eyebrowse-switch-to-window-config-5
-  "M-6" #'eyebrowse-switch-to-window-config-6
-  "M-7" #'eyebrowse-switch-to-window-config-7
-  "M-8" #'eyebrowse-switch-to-window-config-8
-  "M-9" #'eyebrowse-switch-to-window-config-9)
+(nvmap override
+  "M-1" (lambda () (interactive) (persp-switch "1"))
+  "M-2" (lambda () (interactive) (persp-switch "2"))
+  "M-3" (lambda () (interactive) (persp-switch "3"))
+  "M-4" (lambda () (interactive) (persp-switch "4"))
+  "M-5" (lambda () (interactive) (persp-switch "5"))
+  "M-6" (lambda () (interactive) (persp-switch "6"))
+  "M-7" (lambda () (interactive) (persp-switch "7"))
+  "M-8" (lambda () (interactive) (persp-switch "8"))
+  "M-9" (lambda () (interactive) (persp-switch "9")))
 
 (nvmap :prefix leader-key
   :keymaps 'override

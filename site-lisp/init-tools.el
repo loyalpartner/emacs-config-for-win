@@ -65,7 +65,7 @@
                  (func (intern (format "winum-select-window-%d" n))))
             (nvmap
               :prefix leader-key
-              :keymap 'override
+              :keymaps 'override
               key `(,func :which-key ,(format "[%s]" n)))))
         (number-sequence 1 9)))
 

@@ -266,6 +266,10 @@ This excludes the protocol and querystring."
 (omap! "u" evil-inner-url evil-outer-url)
 (omap! "x" evil-inner-xml-attr evil-outer-xml-attr)
 
+
+(general-imap "C-r" (general-key-dispatch #'evil-paste-from-register
+                        :timeout 0.3
+                        "C-r" #'counsel-evil-registers))
 (nvmap
   "]b" #'next-buffer
   "[b" #'previous-buffer
