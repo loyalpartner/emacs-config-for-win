@@ -139,7 +139,9 @@
 ;; PROJECT:
 (nvmap override
   :prefix leader-key
+  "pf" '(counsel-projectile-find-file :which-key "switch project")
   "pp" '(counsel-projectile-switch-project :which-key "switch project")
+  "pt" '(magit-todos-list :which-key "project task list")
  )
 
 ;;;###autoload
@@ -169,7 +171,6 @@
   "sL" '(link-hint-copy-link :which-key "copy link")
   "so" '(counsel-ace-link :which-key "#TODO")
   "sp" '(counsel-rg :which-key "search project")
-  "pp" '(counsel-projectile-switch-project :which-key "switch project")
   "ss" '(swiper-isearch :which-key "search buffer")
   "sS" '(swiper-isearch-thing-at-point :which-key "search buffer at point"))
 
