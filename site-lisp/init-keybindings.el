@@ -111,19 +111,25 @@
 ;; git
 (nvmap override
   :prefix leader-key
- "gr" #'git-gutter:revert-hunk
- "gs" #'git-gutter:stage-hunk
- "gS" #'magit-stage-file
- "gg" #'magit-status
+  "gb" '(magit-branch-checkout :which-key "switch branch")
+  "gB" '(magit-blame-addition :which-key "switch branch")
 
- "goo" '(browse-at-remote :which-key "browse file or region")
- "goh" '(+vc/browse-at-remote-homepage :which-key "browse homepage")
- "gor" '(forge-browse-remote :which-key "brose remote")
- "goc" '(forge-browse-commit :which-key "browse commit")
- "goi" '(forge-browse-issue :which-key "browse an issue")
- "gop" '(forge-browse-pullreq :which-key "browse a pull request")
- "goI" '(forge-browse-issues :which-key "browse issues")
- "goP" '(forge-browse-pullreqs :which-key "browse pull requests"))
+  "gg" #'magit-status
+  "gy" '(browse-at-remote-kill :which-key "copy link to remote")
+  "gY" '(vc-copy-link-to-homepage :which-key "copy link to homepage")
+
+  "gr" #'git-gutter:revert-hunk
+  "gs" #'git-gutter:stage-hunk
+  "gS" #'magit-stage-file
+
+  "goo" '(browse-at-remote :which-key "browse file or region")
+  "goh" '(vc-browse-at-homepage :which-key "browse homepage")
+  "gor" '(forge-browse-remote :which-key "brose remote")
+  "goc" '(forge-browse-commit :which-key "browse commit")
+  "goi" '(forge-browse-issue :which-key "browse an issue")
+  "gop" '(forge-browse-pullreq :which-key "browse a pull request")
+  "goI" '(forge-browse-issues :which-key "browse issues")
+  "goP" '(forge-browse-pullreqs :which-key "browse pull requests"))
  
 ;; help
 (nvmap override
