@@ -19,6 +19,14 @@
 ;;
 ;;; Code:
 
+(use-package rotate-text
+  :straight t
+  :commands rotate-text
+  :init
+  (general-define-key
+   :keymaps '(normal visual)
+   "!" #'rotate-text))
+
 (use-package yasnippet
   :straight t
   ;; :after-call pre-command-hook

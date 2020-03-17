@@ -28,13 +28,21 @@
   ;; a better *help* buffer
   :commands helpful--read-symbol
   :init
-  ;h(global-set-key [remap describe-function] #'helpful-callable)
-  ;h(global-set-key [remap describe-command]  #'helpful-command)
-  ;h(global-set-key [remap describe-variable] #'helpful-variable)
-  ;h(global-set-key [remap describe-key]      #'helpful-key)
-					;h(global-set-key [remap describe-symbol]   #'helpful-symbol)
-  )
-
+  (add-hook 'emacs-lisp-mode-hook
+            (lambda ()
+              (setq-local rotate-text-symbols
+                          '(("t" "nil")
+                            ("let" "let*")
+                            ("when" "unless")
+                            ("advice-add" "advice-remove")
+                            ("add-hook" "remove-hook")
+                            ("it" "xit")
+                            ("before" "after" "around")
+                            ("describe" "xdescribe")))
+              (setq-local rotate-text-words
+                          '(("next" "previous")
+                            ("forward" "backward")
+                            ("letf" "right" "top" "bottom"))))))
 
 (general-def help-map
   "f" #'helpful-callable
