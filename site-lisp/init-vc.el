@@ -18,6 +18,25 @@
 ;;
 ;;
 ;;; Code:
+(use-package browse-at-remote
+  :straight t
+  :commands (browse-at-remote-kill))
+
+(defun vc-get-homepage ()
+  "browse at homepage"
+  (or (let ((url (browse-at-remote--remote-ref)))
+        (cdr (browse-at-remote--get-url-from-remote (car url))))
+      (user-error "Can't find homepage for current project")))
+
+;;;###autoload
+(defun vc-browse-at-homepage ()
+  (interactive )
+  (browse-url (vc-get-homepage)))
+
+;;;###autoload
+(defun vc-copy-link-to-homepage ()
+  (interactive)
+  (kill-new (vc-get-homepage)))
 
 (use-package magit
   :straight t
