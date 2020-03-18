@@ -70,7 +70,7 @@
   :init
   (setq evil-escape-excluded-states '(normal visual multiedit emacs motion)
         evil-escape-excluded-major-modes '(neotree-mode treemacs-mode vterm-mode)
-        evil-escape-key-sequence nil
+        evil-escape-key-sequence "hh"
         evil-escape-delay 0.3)
   (evil-define-key* '(insert replace visual operator) 'global "\C-g" #'evil-escape)
   :config
@@ -82,9 +82,9 @@
   :defer 1
   :config
   (setq evil-collection-mode-list
-	(seq-remove (lambda (mode)
-		      (memq mode evil-collection-disabled-list))
-		    evil-collection-mode-list))
+	    (seq-remove (lambda (mode)
+		              (memq mode evil-collection-disabled-list))
+		            evil-collection-mode-list))
   (evil-collection-init))
 
 (use-package evil-nerd-commenter
@@ -254,13 +254,13 @@ This excludes the protocol and querystring."
   (evil-next-comment (- count)))
 
 
-(nvmap :map emacs-lisp-mode-map
+(nvmap emacs-lisp-mode-map
   "gr" #'evil-eval-region-operator)
 
-(nvmap :keymaps 'override
+(nvmap override
   "gc" #'evilnc-comment-operator
-  "gT" #'eyebrowse-prev-window-config
-  "gt" #'eyebrowse-next-window-config)
+  "gT" #'persp-prev
+  "gt" #'persp-next)
 
 (omap! "a" evil-inner-arg evil-outer-arg)
 (omap! "b" evil-textobj-anyblock-inner-block evil-textobj-anyblock-a-block)
