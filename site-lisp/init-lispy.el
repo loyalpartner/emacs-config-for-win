@@ -47,6 +47,7 @@
          (clojure-mode . lispy-mode))
   :config
   (setq lispy-close-quotes-at-end-p t)
+  (define-key lispy-other-mode-map (kbd "t") #'lispy-move-left)
   (add-hook 'lispy-mode-hook #'turn-off-smartparens-mode))
 
 (provide 'init-lispy)
