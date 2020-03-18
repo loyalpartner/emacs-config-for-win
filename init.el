@@ -36,9 +36,13 @@
 
   ;; 下面才写你的其它配置
 
+  (require 'seq)
   (require 'init-ui)
   (require 'init-popup)
   (require 'init-core)
+  (require 'init-workspace)
+  ;; (require 'init-selectrum)
+  (require 'init-ivy)
   (require 'init-evil)
   (require 'init-chinese)
   (require 'init-translate)
