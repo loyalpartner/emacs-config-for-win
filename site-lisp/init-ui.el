@@ -26,9 +26,11 @@
 ;;   (dashboard-insert-startupify-lists))
 
 (use-package doom-modeline
-  :after-call pre-command-hook
+  ;; :after-call pre-command-hook
+  :hook (after-init . doom-modeline-mode)
   :straight t
-  :config (doom-modeline-mode 1))
+  ;; :config (doom-modeline-mode 1)
+  )
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
