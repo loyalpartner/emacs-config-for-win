@@ -147,6 +147,9 @@
   :straight t
   :commands (evil-inner-arg evil-outer-arg))
 
+(use-package evil-textobj-anyblock
+  :straight t)
+
 (use-package evil-multiedit
   :straight t
   :after-call pre-command-hook
@@ -260,7 +263,7 @@ This excludes the protocol and querystring."
   "gt" #'eyebrowse-next-window-config)
 
 (omap! "a" evil-inner-arg evil-outer-arg)
-(omap! "b" evil-textobj-anyblock-inner-block evil-outer-arg)
+(omap! "b" evil-textobj-anyblock-inner-block evil-textobj-anyblock-a-block)
 (omap! "c" evilnc-inner-comment evilnc-outer-commenter)
 (omap! "f" evil-inner-defun evil-inner-defun)
 (omap! "g" evil-whole-buffer evil-whole-buffer)
