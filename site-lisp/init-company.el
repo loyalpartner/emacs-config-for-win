@@ -46,7 +46,7 @@
   ;; Allow users to switch between backends on the fly. E.g. C-x C-s followed
   ;; by C-x C-n, will switch from `company-yasnippet' to
   ;; `company-dabbrev-code'.
-  (advice-add #'company-begin-backend :before (lambda (orig-fun &rest args)
+  (advice-add #'company-begin-backend :before (lambda (&rest _)
   						                        (company-abort)))
 
   (general-def company-active-map
