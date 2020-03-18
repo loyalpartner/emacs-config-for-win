@@ -111,6 +111,14 @@
   ;; :hook (after-init . winner-mode)
   )
 
+(use-package expand-region
+  :straight t
+  :commands (er/expand-region))
+
+;; (general-def help-map
+;;   "f" #'helpful-callable
+;;   "v" #'helpful-variable
+;;   "k" #'helpful-key)
 ;; (use-package projectile
 ;;   :straight t
 ;;   :after-call after-find-file dired-before-readin-hook minibuffer-setup-hook

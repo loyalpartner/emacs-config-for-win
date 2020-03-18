@@ -260,6 +260,7 @@ This excludes the protocol and querystring."
   "gt" #'eyebrowse-next-window-config)
 
 (omap! "a" evil-inner-arg evil-outer-arg)
+(omap! "b" evil-textobj-anyblock-inner-block evil-outer-arg)
 (omap! "c" evilnc-inner-comment evilnc-outer-commenter)
 (omap! "f" evil-inner-defun evil-inner-defun)
 (omap! "g" evil-whole-buffer evil-whole-buffer)
@@ -270,6 +271,10 @@ This excludes the protocol and querystring."
 (general-imap "C-r" (general-key-dispatch #'evil-paste-from-register
                         :timeout 0.3
                         "C-r" #'counsel-evil-registers))
+
+(vmap "v" #'er/expand-region)
+
+
 (nvmap
   "]b" #'next-buffer
   "[b" #'previous-buffer
