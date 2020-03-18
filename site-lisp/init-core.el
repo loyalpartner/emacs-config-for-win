@@ -77,25 +77,6 @@
 
 (defvar leader-key "SPC")
 
-(use-package selectrum
-  :straight t
-  :init
-  (add-hook 'pre-command-hook #'selectrum-mode)
-  :config
-                                        ;					(selectrum-mode 1)
-  )
-
-(use-package selectrum-prescient
-  :after selectrum
-  :straight
-  (selectrum-prescient
-   :host github :repo "raxod502/prescient.el"
-   :files ("selectrum-prescient.el"))
-  :defer 1
-  :config
-  (prescient-persist-mode)
-  (selectrum-prescient-mode))
-
 (use-package general
   :straight t
   :config
@@ -106,9 +87,23 @@
   (general-define-key key inner :keymaps 'evil-inner-text-objects-map)
   (general-define-key key outer :keymaps 'evil-outer-text-objects-map))
 
-(use-package winer
+(use-package winner
   :defer 1
   ;; :hook (after-init . winner-mode)
+  :config
+  (winner-mode +1))
+
+(use-package helpful
+  :straight t
+  ;; a better *help* buffer
+  :commands helpful--read-symbol
+  :init
+  (global-set-key [remap describe-function] #'helpful-callable)
+  (global-set-key [remap describe-command]  #'helpful-command)
+  (global-set-key [remap describe-variable] #'helpful-variable)
+  (global-set-key [remap describe-key]      #'helpful-key)
+  (global-set-key [remap describe-symbol]   #'helpful-symbol)
+
   )
 
 (use-package expand-region

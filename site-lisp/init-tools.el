@@ -48,12 +48,6 @@
   :config
   (counsel-projectile-mode))
 
-;; (use-package eyebrowse
-;;   :straight t
-;;   :after-call pre-command-hook
-;;   :config
-;;   (eyebrowse-mode 1))
-
 (use-package winum
   :straight t
   :after-call pre-command-hook find-file-hook
