@@ -21,12 +21,7 @@
 
 (use-package elisp-mode
   :hook ((emacs-lisp-mode . emacs-lisp-extend-imenu)
-	 (emacs-lisp-mode . rainbow-delimiters-mode)))
-
-(use-package helpful
-  :straight t
-  ;; a better *help* buffer
-  :commands helpful--read-symbol
+         (emacs-lisp-mode . rainbow-delimiters-mode))
   :init
   (add-hook 'emacs-lisp-mode-hook
             (lambda ()
@@ -44,10 +39,6 @@
                             ("forward" "backward")
                             ("letf" "right" "top" "bottom"))))))
 
-(general-def help-map
-  "f" #'helpful-callable
-  "v" #'helpful-variable
-  "k" #'helpful-key)
 
 (eval-after-load 'lispy
   (nmap :keymaps '(emacs-lisp-mode-map override)
