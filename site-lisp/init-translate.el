@@ -114,4 +114,4 @@
   "yc" #'evil-translate-and-replace-operator
   "yy" #'evil-google-translate-operator)
 
-(provide 'init-translation)
+(provide 'init-translate)

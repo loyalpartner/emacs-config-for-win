@@ -41,6 +41,7 @@
   (require 'init-core)
   (require 'init-evil)
   (require 'init-chinese)
+  (require 'init-translate)
   (require 'init-editor)
   (require 'init-tools)
   (require 'init-vc)
