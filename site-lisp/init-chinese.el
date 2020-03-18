@@ -50,44 +50,7 @@
   :config
   (pyim-basedict-enable))
 
-(use-package sdcv
-  :straight
-  (sdcv :type git :flavor melpa :host github :repo "loyalpartner/sdcv")
-  ;; (sdcv :type git :flavor melpa :host github :repo "manateelazycat/sdcv")
-  :commands (sdcv-search-pointer+
-	     sdcv-search-pointer
-	     sdcv-search-input
-	     sdcv-search-input+
-	     sdcv-translate-result
-	     sdcv-pick-word)
-  :config
-  (setq sdcv-dictionary-data-dir (expand-file-name "~/.stardict/dic")
-        sdcv-say-word-p t
-        sdcv-tooltip-timeout 20)
-  (setq sdcv-dictionary-simple-list
-	'("懒虫简明英汉词典" "懒虫简明汉英词典" "朗道英汉字典5.0" "朗道汉英字典5.0" "新华字典")
-	sdcv-dictionary-complete-list
-	'("懒虫简明英汉词典" "懒虫简明汉英词典" "朗道英汉字典5.0" "朗道汉英字典5.0" "牛津英汉双解美化版" "新华字典")))
-
-;; (advice-add #'sdcv-search-with-dictionary :around
-;; 	    (lambda (orig-fn &rest args)
-;; 	      (let ((word-arg (car args)))
-;; 		(unless word-arg
-;; 		  (setq word-arg (sdcv-region-or-word))
-;; 		  ;; (deactivate-mark)
-;; 		  )
-;; 		(setcar args (format "\"%s\"" word-arg))
-;; 		(apply orig-fn args))))
-
-
-(use-package company-english-helper
-  :straight
-  (company-english-helper :type git :flavor melpa :host github :repo "manateelazycat/company-english-helper")
-  :commands toggle-company-english-helper company-english-helper-search)
-
 (imap "M-c" #'pyim-convert-string-at-point)
 
-(nvmap "g." #'sdcv-search-pointer+)
-
-(set-default-font "SauceCodePro NF")
+;; (set-default-font "SauceCodePro NF")
 (provide 'init-chinese)
