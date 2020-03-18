@@ -43,13 +43,16 @@
 
 (use-package counsel-projectile
   :straight t
-  :commands (counsel-projectile))
-
-(use-package eyebrowse
-  :straight t
-  :after-call pre-command-hook
+  :commands (counsel-projectile
+             counsel-projectile-switch-project)
   :config
-  (eyebrowse-mode 1))
+  (counsel-projectile-mode))
+
+;; (use-package eyebrowse
+;;   :straight t
+;;   :after-call pre-command-hook
+;;   :config
+;;   (eyebrowse-mode 1))
 
 (use-package winum
   :straight t
