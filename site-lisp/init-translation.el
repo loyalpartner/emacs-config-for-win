@@ -58,8 +58,8 @@
   "l" #'evil-forward-char
   "gv" #'evil-visual-restore)
 
-(nvmap "g." (lambda (arg)
-              (interactive "p")
+(nvmap "g." (lambda (&optional arg)
+              (interactive "P")
               (call-interactively (if arg
                                       #'sdcv-search-pointer
                                     #'sdcv-search-pointer+))))
